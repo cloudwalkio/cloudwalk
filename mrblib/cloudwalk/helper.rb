@@ -1,0 +1,13 @@
+module Cloudwalk
+  class Helper
+    def self.run
+      puts "cloudwalk [switches] [arguments]"
+      puts "cloudwalk help                            : show this message"
+      puts "cloudwalk new <name>                      : create app"
+      puts "cloudwalk compile -o<out> <file1> <file2> : compile ruby to mrb"
+      puts "cloudwalk console                         : mirb console"
+      puts "cloudwalk run -b <out>, <file1>           : run ruby or binary file"
+      puts "cloudwalk version                         : print funky-cli version"
+    end
+  end
+end
