@@ -12,6 +12,8 @@ def __main__(argv)
     Cloudwalk::Mruby.run(*argv[2..-1])
   when "console"
     Cloudwalk::Mruby.console
+  when "about"
+    Cloudwalk::About.run
   else
     Cloudwalk::Helper.run
   end
