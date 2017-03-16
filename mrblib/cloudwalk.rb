@@ -5,7 +5,7 @@ def __main__(argv)
   when "new"
     Cloudwalk::Setup.run(argv[2])
   when "help"
-    Cloudwalk::Helper.run
+    Cloudwalk::Help.run
   when "compile"
     Cloudwalk::Mruby.compile(*argv[2..-1])
   when "run"
@@ -15,6 +15,6 @@ def __main__(argv)
   when "about"
     Cloudwalk::About.run
   else
-    Cloudwalk::Helper.run
+    Cloudwalk::Help.run
   end
 end

@@ -1,5 +1,5 @@
 module Cloudwalk
-  class Helper
+  class Help
     def self.run
       puts "cloudwalk [switches] [arguments]"
       puts "cloudwalk help                            : show this message"
