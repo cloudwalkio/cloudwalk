@@ -1,4 +1,6 @@
 def __main__(argv)
+  Util::ENV.load
+  Cloudwalk::Config.load
   case argv[1]
   when "version"
     puts "v#{Cloudwalk::VERSION}"
@@ -14,6 +16,10 @@ def __main__(argv)
     Cloudwalk::Mruby.console
   when "about"
     Cloudwalk::About.run
+  when "login"
+    Cloudwalk::Login.run
+  when "logout"
+    Cloudwalk::Login.run
   else
     Cloudwalk::Help.run
   end
