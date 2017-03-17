@@ -45,12 +45,16 @@ def gem_config(conf)
   conf.gem :mgem => "mruby-base58"
   conf.gem :mgem => "mruby-bignum"
 
+  conf.gem :mgem => "mruby-http"
+
   # be sure to include this gem (the cli app)
   conf.gem File.expand_path(File.dirname(__FILE__))
 end
 
 MRuby::Build.new do |conf|
   toolchain :clang
+
+  cc.defines = %w(MRB_STACK_EXTEND_DOUBLING ENABLE_DEBUG)
 
   conf.enable_bintest
   conf.enable_debug
@@ -65,11 +69,15 @@ end
 MRuby::Build.new('x86_64-pc-linux-gnu') do |conf|
   toolchain :gcc
 
+  cc.defines = %w(MRB_STACK_EXTEND_DOUBLING ENABLE_DEBUG)
+
   gem_config(conf)
 end
 
 MRuby::CrossBuild.new('i686-pc-linux-gnu') do |conf|
   toolchain :gcc
+
+  cc.defines = %w(MRB_STACK_EXTEND_DOUBLING ENABLE_DEBUG)
 
   [conf.cc, conf.cxx, conf.linker].each do |cc|
     cc.flags << "-m32"
@@ -80,6 +88,8 @@ end
 
 MRuby::CrossBuild.new('x86_64-apple-darwin14') do |conf|
   toolchain :clang
+
+  cc.defines = %w(MRB_STACK_EXTEND_DOUBLING ENABLE_DEBUG)
 
   [conf.cc, conf.linker].each do |cc|
     cc.command = 'x86_64-apple-darwin14-clang'
@@ -96,6 +106,8 @@ end
 MRuby::CrossBuild.new('i386-apple-darwin14') do |conf|
   toolchain :clang
 
+  cc.defines = %w(MRB_STACK_EXTEND_DOUBLING ENABLE_DEBUG)
+
   [conf.cc, conf.linker].each do |cc|
     cc.command = 'i386-apple-darwin14-clang'
   end
@@ -110,6 +122,8 @@ end
 
 MRuby::CrossBuild.new('x86_64-w64-mingw32') do |conf|
   toolchain :gcc
+
+  cc.defines = %w(MRB_STACK_EXTEND_DOUBLING ENABLE_DEBUG)
 
   [conf.cc, conf.linker].each do |cc|
     cc.command = 'x86_64-w64-mingw32-gcc'
@@ -126,6 +140,8 @@ end
 
 MRuby::CrossBuild.new('i686-w64-mingw32') do |conf|
   toolchain :gcc
+
+  cc.defines = %w(MRB_STACK_EXTEND_DOUBLING ENABLE_DEBUG)
 
   [conf.cc, conf.linker].each do |cc|
     cc.command = 'i686-w64-mingw32-gcc'
