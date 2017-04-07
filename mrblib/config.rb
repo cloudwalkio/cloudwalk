@@ -15,6 +15,7 @@ module Cloudwalk
       "token"       => nil,
       "log_company" => nil,
       "log_channel" => nil,
+      "user_id"     => nil,
       "env"         => "production"
     }
     self.parameters = PARAMETERS_DEFAULT
@@ -33,6 +34,10 @@ module Cloudwalk
       else
         "production"
       end
+    end
+
+    def self.user_id
+      self.parameters["user_id"]
     end
 
     def self.token
