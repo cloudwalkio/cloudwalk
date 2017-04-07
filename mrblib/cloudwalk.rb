@@ -19,7 +19,7 @@ def __main__(argv)
   when "login"
     Cloudwalk::Login.run
   when "logout"
-    Cloudwalk::Login.run
+    Cloudwalk::Logout.run
   when "token"
     puts Cloudwalk::Config.token
   else
