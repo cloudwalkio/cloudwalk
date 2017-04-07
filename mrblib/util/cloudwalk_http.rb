@@ -10,22 +10,24 @@ module Util
 
     def self.post(url, request)
       url = HTTP::Parser.new().parse_url(url)
-      self.new(url.schema, url.host, url.port).post(url.path, request)
+      path = (url.query) ? "#{url.path}?#{url.query}" : url.path
+      self.new(url.schema, url.host, url.port).post(path, request)
     end
 
-    def self.get(uri, request)
+    def self.get(url, request)
       url = HTTP::Parser.new().parse_url(url)
-      self.new(url.schema, url.host, url.port).get(url.path, request)
+      path = (url.query) ? "#{url.path}?#{url.query}" : url.path
+      self.new(url.schema, url.host, url.port).get(path, request)
     end
 
-    def self.update(uri, request)
+    def self.put(url, request)
       url = HTTP::Parser.new().parse_url(url)
-      self.new(url.schema, url.host, url.port).update(url.path, request)
+      self.new(url.schema, url.host, url.port).put(url.path, request)
     end
 
-    def self.update(uri, request)
+    def self.delete(uri, request)
       url = HTTP::Parser.new().parse_url(url)
-      self.new(url.schema, url.host, url.port).update(url.path, request)
+      self.new(url.schema, url.host, url.port).delete(url.path, request)
     end
 
     def socket_class_exist?
@@ -88,8 +90,8 @@ module Util
       request("POST", path, req)
     end
 
-    def update(path = "/", req = nil)
-      request("UPDATE", path, req)
+    def put(path = "/", req = nil)
+      request("PUT", path, req)
     end
 
     def delete(path = "/", req = nil)
