@@ -98,9 +98,10 @@ module Cloudwalk
 
     def self.clean!
       if self.file_exists?
-        txt = JSON.stringify(PARAMETERS_DEFAULT)
-        File.open(self.file_path, "w") { |file| file.write(txt) }
+        File.delete(self.file_path)
         true
+      else
+        false
       end
     end
 
