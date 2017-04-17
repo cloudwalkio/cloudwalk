@@ -41,7 +41,7 @@ def gem_config(conf)
   conf.gem :github => "scalone/mruby-ripemd"
   conf.gem :github => "scalone/mruby-hmac"
   conf.gem :mgem => "mruby-sha2"
-  conf.gem :mgem => "mruby-sha1"
+  conf.gem :github => "scalone/mruby-sha1"
   conf.gem :mgem => "mruby-base58"
   conf.gem :mgem => "mruby-bignum"
 
