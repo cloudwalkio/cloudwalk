@@ -10,6 +10,7 @@
 #include "mruby/hash.h"
 #include "mruby/dump.h"
 #include "mruby/proc.h"
+#include "da_funk.h"
 
 #define DONE mrb_gc_arena_restore(mrb, 0)
 
@@ -295,6 +296,22 @@ mrb_mruby_cli_mrbc(mrb_state *mrb, mrb_value klass)
   return mrb_fixnum_value(EXIT_SUCCESS);
 }
 
+static mrb_value
+mrb_mruby_da_funk_zip(mrb_state *mrb, mrb_value klass)
+{
+  char path[100]={0x00};
+  FILE *fptr;
+
+  memset(path, 0, sizeof(path));
+
+  sprintf(path, "%s/.cloudwalk/da_funk.zip", getenv("HOME"));
+
+  fptr = fopen(path, "w");
+  fwrite(&da_funk, da_funk_len, 1, fptr);
+
+  return mrb_fixnum_value(fclose(fptr));
+}
+
 mrb_value mrb_mruby_cli_mirb(mrb_state *mrb, mrb_value klass);
 mrb_value mrb_mruby_cli_mruby(mrb_state *mrb, mrb_value klass);
 
@@ -304,9 +321,10 @@ mrb_cloudwalk_gem_init(mrb_state* mrb)
   struct RClass *cli;
 
   cli = mrb_define_module(mrb, "Cloudwalk");
-  mrb_define_class_method(mrb , cli , "mrbc"  , mrb_mruby_cli_mrbc  , MRB_ARGS_REQ(2));
-  mrb_define_class_method(mrb , cli , "mirb"  , mrb_mruby_cli_mirb  , MRB_ARGS_NONE());
-  mrb_define_class_method(mrb , cli , "mruby" , mrb_mruby_cli_mruby , MRB_ARGS_REQ(2));
+  mrb_define_class_method(mrb , cli , "mrbc"        , mrb_mruby_cli_mrbc    , MRB_ARGS_REQ(2));
+  mrb_define_class_method(mrb , cli , "mirb"        , mrb_mruby_cli_mirb    , MRB_ARGS_NONE());
+  mrb_define_class_method(mrb , cli , "mruby"       , mrb_mruby_cli_mruby   , MRB_ARGS_REQ(2));
+  mrb_define_class_method(mrb , cli , "da_funk_zip" , mrb_mruby_da_funk_zip , MRB_ARGS_NONE());
   DONE;
 }
 
