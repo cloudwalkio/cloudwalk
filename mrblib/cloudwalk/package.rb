@@ -102,10 +102,10 @@ module Cloudwalk
     end
 
     def self.setup_platform
-      #if Cloudwalk::Config.environment == "staging"
-        puts Device::Setting.to_production!
-        #Device::Setting.to_staging!
-      #end
+      if Cloudwalk::Config.environment == "staging"
+        Device::Setting.to_production!
+        Device::Setting.to_staging!
+      end
       Device::Setting.network_configured  = "1"
       Device::Setting.media               = "wifi"
       Device::System.klass                = "package"
