@@ -24,6 +24,8 @@ def __main__(argv)
     puts Cloudwalk::Config.token
   when "app"
     Cloudwalk::App.run(*argv[2..-1])
+  when "package"
+    Cloudwalk::Package.run(*argv[2..-1])
   else
     Cloudwalk::Help.run
   end
