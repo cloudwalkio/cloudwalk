@@ -4,8 +4,7 @@ module Cloudwalk
       attr_accessor :parameters
     end
 
-    #API         = "https://api.cloudwalk.io"
-    API = "https://api-staging.cloudwalk.io"
+    API         = "https://api.cloudwalk.io"
     API_STAGING = "https://api-staging.cloudwalk.io"
 
     PARAMETERS_DEFAULT = {
@@ -15,8 +14,7 @@ module Cloudwalk
       "token"       => nil,
       "log_company" => nil,
       "log_channel" => nil,
-      "user_id"     => nil,
-      "env"         => "production"
+      "user_id"     => nil
     }
     self.parameters = PARAMETERS_DEFAULT
 
@@ -29,8 +27,8 @@ module Cloudwalk
     end
 
     def self.environment
-      if self.parameters && self.parameters["env"] && ! self.parameters["env"].empty?
-        self.parameters["env"]
+      if Util::ENV["CLOUDWALK_ENV"] == "staging"
+        "staging"
       else
         "production"
       end
