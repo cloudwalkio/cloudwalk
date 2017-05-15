@@ -13,7 +13,7 @@ module Util
         end
         old_wd = Dir.getwd
         Dir.chdir Cloudwalk::Config.dir_path
-        if true #Miniz.unzip("da_funk.zip", "./")
+        if Miniz.unzip("da_funk.zip", "./")
           Dir.chdir old_wd
           begin
             $LOAD_PATH << self.da_funk_path
@@ -34,27 +34,6 @@ module Util
 
     def self.da_funk_zip_path
       "#{Cloudwalk::Config.dir_path}/#{DA_FUNK_ZIP}"
-    end
-
-    def self.setup_tmp_dir
-      if Dir.exists?(TMP_PATH)
-        if Dir.exists?(TMP_SHARED_PATH)
-          Util::FileTool.clean_dir(TMP_SHARED_PATH)
-        else
-          Dir.mkdir(TMP_SHARED_PATH)
-        end
-
-        if Dir.exists?(TMP_MAIN_PATH)
-          Util::FileTool.clean_dir(TMP_MAIN_PATH)
-        else
-          Dir.mkdir(TMP_MAIN_PATH)
-        end
-      else
-        Dir.mkdir(TMP_PATH)
-        Dir.mkdir(TMP_MAIN_PATH)
-        Dir.mkdir(TMP_SHARED_PATH)
-      end
-      Dir.chdir(TMP_PATH)
     end
   end
 end
