@@ -1,3 +1,5 @@
 mruby/
 exe/
 tmp/
+src/da_funk.c
+da_funk
