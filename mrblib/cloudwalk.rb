@@ -5,7 +5,7 @@ def __main__(argv)
   when "version"
     puts "v#{Cloudwalk::VERSION}"
   when "new"
-    Cloudwalk::Setup.run(argv[2])
+    Cloudwalk::New.run(*argv[2..-1])
   when "help"
     Cloudwalk::Help.run
   when "compile"

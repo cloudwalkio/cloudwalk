@@ -1,5 +1,5 @@
-module Cloudwalk
-  class Setup
+module Util
+  class MrubyNew
     def self.run(name)
       Dir.mkdir(name) unless Dir.exist?(name)
       Dir.chdir(name) do
@@ -56,7 +56,7 @@ IGNORE
 source 'https://rubygems.org'
 
 gem 'da_funk'
-gem 'cloudwalk', '~> 0.4'
+gem 'cloudwalk'
 gem 'rake'
 GEMFILE
     end
