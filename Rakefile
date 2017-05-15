@@ -111,7 +111,7 @@ end
 
 desc "Generate da_funk.c from zips"
 task :da_funk do
-  require "zip"
+  require "zip/zip"
 
   FileUtils.cd(File.dirname(File.realpath(__FILE__)))
   FileUtils.cd "./lib/main"
@@ -120,7 +120,7 @@ task :da_funk do
 
   FileUtils.cd "out/main"
   FileUtils.rm_rf "./da_funk"
-  Zip::File.open("./da_funk", Zip::File::CREATE) do |zip|
+  Zip::ZipFile.open("./da_funk", Zip::ZipFile::CREATE) do |zip|
     Dir["*.mrb"].each do |file|
       next if file == "main.mrb"
       zip.add(file, file)
