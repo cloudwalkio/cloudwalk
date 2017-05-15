@@ -13,6 +13,8 @@ module Cloudwalk
             self.ingenico
           elsif self.verifone?
             self.verifone
+          elsif self.pax? || self.gertec?
+            self.mruby
           else
             puts "BRAND #{Util::ENV["BRAND"]} not supported yet."
           end
@@ -138,6 +140,14 @@ module Cloudwalk
 
     def self.verifone?
       Util::ENV["BRAND"].to_s.downcase == "verifone"
+    end
+
+    def self.pax?
+      Util::ENV["BRAND"].to_s.downcase == "pax"
+    end
+
+    def self.gertec?
+      Util::ENV["BRAND"].to_s.downcase == "gertec"
     end
 
     def self.model
