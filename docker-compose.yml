@@ -12,6 +12,9 @@ bintest:
 mtest:
   <<: *defaults
   command: rake test:mtest
+bundle:
+  <<: *defaults
+  command: bundle install
 clean:
   <<: *defaults
   command: rake clean
