@@ -91,14 +91,14 @@ module Cloudwalk
         Device::Setting.to_production!
         Device::Setting.to_staging!
       end
-      Device::Setting.network_configured  = "1"
-      Device::Setting.media               = "wifi"
-      Device::System.klass                = "package"
-      Device::Setting.logical_number      = self.logical_number
-      CliPlatform::System.serial  = self.serial_number
-      CliPlatform::System.brand   = self.brand
-      CliPlatform::System.model   = self.model
-      CliPlatform::System.battery = 0
+      Device::Setting.network_configured = "1"
+      Device::Setting.media              = "wifi"
+      Device::System.klass               = "package"
+      Device::Setting.logical_number     = self.logical_number
+      CliPlatform::System.serial         = self.serial_number
+      CliPlatform::System.brand          = self.brand
+      CliPlatform::System.model          = self.model
+      CliPlatform::System.battery        = 0
 
       Device.adapter ||= CliPlatform
       CliPlatform.setup
@@ -106,7 +106,7 @@ module Cloudwalk
       old_wd = Dir.getwd
       Dir.chdir Cloudwalk::Config.dir_path
       I18n.configure("da_funk", "en")
-      Dir.chdir "#{old_wd}/tmp"
+      Dir.chdir old_wd
     end
 
     def self.ingenico?
