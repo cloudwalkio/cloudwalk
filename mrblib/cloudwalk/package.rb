@@ -8,7 +8,7 @@ module Cloudwalk
 
     def self.run(*args)
       if Manager::User.logged?
-        if check_parameters(args) && self.device_exists? && self.setup_da_funk
+        if check_parameters(args) && self.device_exists? && Util::DaFunkRuntime.setup
           if self.ingenico?
             self.ingenico
           elsif self.verifone?
@@ -49,29 +49,20 @@ module Cloudwalk
       end
     end
 
-    private
-    def self.setup_da_funk
-      Cloudwalk.da_funk_zip
-      if File.exists?(self.da_funk_zip_path)
-        if Dir.exists?(self.da_funk_path)
-          Util::FileTool.clean_dir(self.da_funk_path)
-        else
-          Dir.mkdir(self.da_funk_path)
-        end
-        old_wd = Dir.getwd
-        Dir.chdir Cloudwalk::Config.dir_path
-        if Miniz.unzip("da_funk.zip", "./")
-          Dir.chdir old_wd
-          begin
-            $LOAD_PATH << self.da_funk_path
-            DA_FUNK_FILES.collect { |file| require file }
-            return true
-          rescue => e
-            puts "ERROR: #{e.message}"
-          end
-        end
+    def self.mruby
+      if self.download
+        Util::MrubyPackage.build
       end
-      puts "Problem to setup."
+    end
+
+    private
+    def self.download
+      self.setup_tmp_dir
+      self.setup_platform
+
+      Device::ParamsDat.download
+      Device::ParamsDat.update_apps
+      PosxmlParser::PosxmlSetting.numerodestepos
     end
 
     def self.setup_tmp_dir
@@ -92,15 +83,7 @@ module Cloudwalk
         Dir.mkdir(TMP_MAIN_PATH)
         Dir.mkdir(TMP_SHARED_PATH)
       end
-    end
-
-    def self.download
-      self.setup_tmp_dir
-      self.setup_platform
-
-      Device::ParamsDat.download
-      Device::ParamsDat.update_apps
-      PosxmlParser::PosxmlSetting.numerodestepos
+      Dir.chdir(TMP_PATH)
     end
 
     def self.setup_platform
@@ -124,14 +107,6 @@ module Cloudwalk
       Dir.chdir Cloudwalk::Config.dir_path
       I18n.configure("da_funk", "en")
       Dir.chdir "#{old_wd}/tmp"
-    end
-
-    def self.da_funk_path
-      "#{Cloudwalk::Config.dir_path}/da_funk"
-    end
-
-    def self.da_funk_zip_path
-      "#{Cloudwalk::Config.dir_path}/#{DA_FUNK_ZIP}"
     end
 
     def self.ingenico?
