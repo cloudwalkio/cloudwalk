@@ -9,7 +9,7 @@ def __main__(argv)
   when "help"
     Cloudwalk::Help.run
   when "compile"
-    Cloudwalk::Mruby.compile(*argv[2..-1])
+    Cloudwalk::Compile.run(*argv[2..-1])
   when "run"
     Cloudwalk::Mruby.run(*argv[2..-1])
   when "console"
