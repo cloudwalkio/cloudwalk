@@ -18,6 +18,21 @@ module Cloudwalk
     }
     self.parameters = PARAMETERS_DEFAULT
 
+    def self.run(*args)
+      case args.first
+      when "user_id"
+        puts self.user_id
+      when "token"
+        puts self.token
+      when "env"
+        puts self.env
+      when "host"
+        puts self.host
+      else
+        puts "Parameter #{args.first} not found, try token, user_id, env, host"
+      end
+    end
+
     def self.dir_path
       "#{Util::ENV["HOME"]}/.cloudwalk"
     end

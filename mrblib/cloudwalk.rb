@@ -20,8 +20,8 @@ def __main__(argv)
     Cloudwalk::Login.run
   when "logout"
     Cloudwalk::Logout.run
-  when "token"
-    puts Cloudwalk::Config.token
+  when "config"
+    Cloudwalk::Config.run(*argv[2..-1])
   when "app"
     Cloudwalk::App.run(*argv[2..-1])
   when "package"
