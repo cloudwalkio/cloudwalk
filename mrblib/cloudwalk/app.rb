@@ -84,15 +84,13 @@ module Cloudwalk
         "displayable"       => old["displayable"],
         "pos_display_label" => old["pos_display_label"],
         "authorizer_url"    => old["authorizer_url"],
-        "base_version_id"      => old["id"]
+        "base_version_id"   => old["id"]
       }
       Manager::Version.create(parameters)
     end
 
     def self.app(name)
-      all = Manager::Application.all
-      puts all.inspect
-      application = all.find do |application|
+      application = Manager::Application.all.find do |application|
         application["posxml_app"]["name"] == xml2posxml(name)
       end
       application["posxml_app"] if application
