@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    archive-zip (0.9.0)
+      io-like (~> 0.3.0)
     cloudwalk_handshake (0.8.0)
     da_funk (0.8.1)
       bundler (~> 1.7)
@@ -11,15 +13,15 @@ GEM
     funky-emv (0.5.7)
       funky-tlv (~> 0.2)
     funky-tlv (0.2.2)
+    io-like (0.3.0)
     posxml_parser (0.13.1)
       funky-emv (~> 0.3)
     rake (10.5.0)
-    zip (2.0.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  archive-zip
   da_funk
   rake
-  zip
