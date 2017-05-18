@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
 gem 'rake'
-gem 'zip', :require => "zip/zip"
+gem 'archive-zip', :require => false
 gem 'da_funk'
