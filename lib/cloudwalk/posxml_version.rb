@@ -9,7 +9,7 @@ module Cloudwalk
     end
 
     def self.get_or_create(app, version)
-      response = JSON.parse(Net::HTTP.get(URI("https://#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
+      response = JSON.parse(Net::HTTP.get(URI("#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
       raise ManagerException.new(response["message"]) if response["message"]
 
       #TODO
@@ -17,14 +17,14 @@ module Cloudwalk
     end
 
     def self.all(app_id)
-      response = JSON.parse(Net::HTTP.get(URI("https://#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
+      response = JSON.parse(Net::HTTP.get(URI("#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
       raise ManagerException.new(response["message"]) if response["message"]
 
       total_pages = response["pagination"]["total_pages"].to_i
       versions = response["appversions"]
 
       (total_pages - 1).times do |page|
-        url = "https://#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100&page=#{page+2}"
+        url = "#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100&page=#{page+2}"
         response = JSON.parse(Net::HTTP.get(URI(url)))
         raise ManagerException.new(response["message"]) if response["message"]
 
@@ -34,7 +34,7 @@ module Cloudwalk
     end
 
     def self.get(app_id, id)
-      url = "https://#{self.host}/v1/apps/posxml/#{app_id}/versions/#{id}?access_token=#{token}"
+      url = "#{self.host}/v1/apps/posxml/#{app_id}/versions/#{id}?access_token=#{token}"
       response = JSON.parse(Net::HTTP.get(URI(url)))
       raise ManagerException.new(response["message"]) if response["message"]
 
@@ -44,13 +44,14 @@ module Cloudwalk
     def self.update(app_id, version_id, bytecode)
       url = "#{self.host}/v1/apps/posxml/#{app_id}/versions/#{version_id}?access_token=#{self.token}"
       uri = URI(url)
-      uri.encode_www_form({"bytecode" => Base64.strict_encode64(bytecode)})
+      response = nil
 
       Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
         request = Net::HTTP::Put.new(uri)
-        response = http.request request
+        request.set_form_data({"bytecode" => Base64.strict_encode64(bytecode)})
+        response = http.request(request)
       end
-      p response
+      response.code == 200
     end
   end
 end
