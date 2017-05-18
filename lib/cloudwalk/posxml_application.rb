@@ -12,13 +12,13 @@ module Cloudwalk
       if @apps
         @apps
       else
-        response = JSON.parse(Net::HTTP.get(URI("https://#{self.host}/v1/apps/posxml?access_token=#{self.token}&per_page=100")))
+        response = JSON.parse(Net::HTTP.get(URI("#{self.host}/v1/apps/posxml?access_token=#{self.token}&per_page=100")))
         raise ManagerException.new(response["message"]) if response["message"]
 
         total_pages = response["pagination"]["total_pages"].to_i
         apps = response["posxmlapps"]
         (total_pages - 1).times do |page|
-          url = "https://#{self.host}/v1/apps/posxml?access_token=#{self.token}&per_page=100&page=#{page+2}"
+          url = "#{self.host}/v1/apps/posxml?access_token=#{self.token}&per_page=100&page=#{page+2}"
           response = JSON.parse(Net::HTTP.get(URI(url)))
           raise ManagerException.new(response["message"]) if response["message"]
 
@@ -29,7 +29,7 @@ module Cloudwalk
     end
 
     def self.get(id)
-      url = "https://#{self.host}/v1/apps/posxml/#{id}?access_token=#{self.token}"
+      url = "#{self.host}/v1/apps/posxml/#{id}?access_token=#{self.token}"
       response = JSON.parse(Net::HTTP.get(URI(url)))
       raise ManagerException.new(response["message"]) if response["message"]
 
