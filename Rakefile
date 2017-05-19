@@ -62,7 +62,7 @@ namespace :test do
 end
 
 desc "Create gem package"
-task :gem => :compile do
+task :gem do
   FileUtils.cd(File.dirname(File.realpath(__FILE__)))
   FileUtils.rm_rf("./exe")
   FileUtils.mkdir_p("./exe")
