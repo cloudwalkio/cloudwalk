@@ -15,7 +15,7 @@ module Cloudwalk
   class RakeTask < ::Rake::TaskLib
     include ::Rake::DSL if defined?(::Rake::DSL)
 
-    attr_accessor :libs, :root_path, :main_out, :out_path
+    attr_accessor :libs, :root_path, :main_out, :out_path, :outs
 
     def initialize
       yield self if block_given?
@@ -39,20 +39,35 @@ module Cloudwalk
     def define
       namespace :cloudwalk do
         desc "Compile posxml"
-        task :build do
-          FileUtils.rm_rf self.out_path
-          FileUtils.mkdir_p self.out_path
-          self.libs.zip(self.outs).each do |file, out|
-            posxml = CwFileJson.xml2posxml(out)
-            puts "cloudwalk compile -xml -o #{posxml} #{file}"
-            platform_call "cloudwalk compile -xml -o #{posxml} #{file}"
+        task :build do |t, args|
+          if path = ARGV[1..-1].first
+            xml, out  = self.libs.zip(self.outs).find { |file, out| file == path }
+
+            posxml = Cloudwalk::CwFileJson.xml2posxml(out)
+            platform_call "cloudwalk compile -xml -o #{posxml} #{xml}"
+          else
+            FileUtils.rm_rf self.out_path
+            FileUtils.mkdir_p self.out_path
+
+            self.libs.zip(self.outs).each do |file, out|
+              posxml = Cloudwalk::CwFileJson.xml2posxml(out)
+              platform_call "cloudwalk compile -xml -o #{posxml} #{file}"
+            end
           end
         end
 
         desc "Deploy all compiled applications based in Cwfile.json"
         task :deploy => :build do
           if Cloudwalk::CwFileJson.setup
-            Cloudwalk::CwFileJson.deploy(self.outs)
+            if path = ARGV[1..-1].first
+              xml, out  = self.libs.zip(self.outs).find { |file, out| file == path }
+              Cloudwalk::CwFileJson.deploy([Cloudwalk::CwFileJson.xml2posxml(out)])
+            else
+              posxmls = self.outs.collect do |xml|
+                Cloudwalk::CwFileJson.xml2posxml(xml)
+              end
+              Cloudwalk::CwFileJson.deploy(posxmls)
+            end
           end
         end
 
