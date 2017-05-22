@@ -88,6 +88,8 @@ require 'rake'
 require 'fileutils'
 require 'bundler/setup'
 
+Bundler.require(:default)
+
 Cloudwalk::RakeTask.new
 RAKEFILE
     end
