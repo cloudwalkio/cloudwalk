@@ -41,14 +41,22 @@ module Cloudwalk
       response
     end
 
-    def self.update(app_id, version_id, bytecode)
-      url = "#{self.host}/v1/apps/posxml/#{app_id}/versions/#{version_id}?access_token=#{self.token}"
-      uri = URI(url)
+    def self.update(app_id, version_id, bytecode, app_parameters = nil)
+      url      = "#{self.host}/v1/apps/posxml/#{app_id}/versions/#{version_id}?access_token=#{self.token}"
+      uri      = URI(url)
+      form     = {"bytecode" => Base64.strict_encode64(bytecode)}
       response = nil
+
+      if app_parameters
+        form["authorizer_url"]    = app_parameters["authorizer_url"]
+        form["description"]       = app_parameters["description"]
+        form["pos_display_label"] = app_parameters["pos_display_label"]
+        form["displayable"]       = app_parameters["pos_display_label"] != "X"
+      end
 
       Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
         request = Net::HTTP::Put.new(uri)
-        request.set_form_data({"bytecode" => Base64.strict_encode64(bytecode)})
+        request.set_form_data(form)
         response = http.request(request)
       end
       response.code == 200
