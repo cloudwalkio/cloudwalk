@@ -16,11 +16,13 @@ cloudwalk [switches] [arguments]
 cloudwalk help                            : show this message
 cloudwalk login                           : perform cloudwalk.io authentication
 cloudwalk logout                          : perform cloudwalk.io logoff
-cloudwalk new <name>                      : create app
+cloudwalk new <name>                      : create app, with: -xml to xml app
 cloudwalk compile -o<out> <file1> <file2> : compile ruby to mrb
+cloudwalk app upgrade-version <old>..<new>: create a new version for xml app
 cloudwalk console                         : mirb console
 cloudwalk run -b <out>, <file1>           : run ruby or binary file
-cloudwalk token                           : print the api token of the current user
+cloudwalk package <parameters>            : Create package based in the params: MODEL, BRAND, SERIAL_NUMBER, LOGICAL_NUMBER; ie: DEVICE=d200
+cloudwalk config <parameter>              : print config parameters (token, user_id, env, host)
 cloudwalk about                           : print cloudwalk cli about
 cloudwalk version                         : print cloudwalk version
 ```
