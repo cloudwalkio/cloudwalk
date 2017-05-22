@@ -68,7 +68,7 @@ GEMFILE
 {
   \"apps\":[
     {
-      \"name\":\"#{name}\",
+      \"name\":\"#{name}.xml\",
       \"modules\":{},
       \"version\":\"1.0.0\",
       \"authorizer_url\":\"#{cwfile["authorizer_url"]}\",
