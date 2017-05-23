@@ -1,5 +1,5 @@
 module Util
-  POSXML_EN_XSD =<<EOF
+  POSXML_EN_XSD =<<'EOF'
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema targetNamespace="http://tempuri.org/posxml.xsd" elementFormDefault="qualified" xmlns="http://tempuri.org/posxml.xsd" xmlns:mstns="http://tempuri.org/posxml.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="posxmlapplication">
