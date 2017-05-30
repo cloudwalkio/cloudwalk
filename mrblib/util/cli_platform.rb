@@ -101,7 +101,7 @@ class CliPlatform
   end
 
   def self.version
-    DaFunk::VERSION
+    "5.0.0"
   end
 end
 
