@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 0.2.5 - 2017-05-30
+
+- Update main(1.4.7) to update posxml_parser (0.14.5).
+
 ### 0.2.4 - 2017-05-23
 
 - Turn POSXML xsd constant a literal string.
