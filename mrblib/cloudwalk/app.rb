@@ -41,6 +41,10 @@ module Cloudwalk
       version_check = VERSION_REGEX.match(self.parameter)
       puts "Version not valid, user this format: <version old>..<version new>, 1.0.25..1.0.26\n" unless version_check
 
+      if ! self.application.include?(".xml") && ! self.application.include?(".posxml")
+        self.application = self.application + ".posxml"
+      end
+
       command_check && version_check
     end
 
