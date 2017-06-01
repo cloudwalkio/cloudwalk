@@ -25,7 +25,7 @@ module Cloudwalk
       when "token"
         puts self.token
       when "env"
-        puts self.env
+        puts self.environment
       when "host"
         puts self.host
       else
