@@ -59,25 +59,21 @@ module Cloudwalk
 
     def self.upgrade_posxml_version(app_name, parameter)
       version1, version2 = parameter.split("..")
-      if apps = self.cwfile
-        apps.find {|app| app["name"] }
-      else
-        if json_app = self.app(app_name)
-          versions = Manager::Version.all(json_app["id"])
-          version1_json = versions.find {|version| version["app_version"]["number"] == version1 }
-          version2_json = versions.find {|version| version["app_version"]["number"] == version2 }
-          if version1_json
-            if version2_json
-              puts "Version #{version1} already created for app #{self.application}"
-            else
-              self.create_version(version1_json["app_version"], version2)
-            end
+      if json_app = self.app(app_name)
+        versions = Manager::Version.all(json_app["id"])
+        version1_json = versions.find {|version| version["app_version"]["number"] == version1 }
+        version2_json = versions.find {|version| version["app_version"]["number"] == version2 }
+        if version1_json
+          if version2_json
+            puts "Version #{version2} already created for app #{self.application}"
           else
-            puts "Version #{version1} not found for app #{self.application}"
+            self.create_version(version1_json["app_version"], version2)
           end
         else
-          puts "Application not found"
+          puts "Version #{version1} not found for app #{self.application}"
         end
+      else
+        puts "Application not found"
       end
     end
 
@@ -90,7 +86,12 @@ module Cloudwalk
         "authorizer_url"    => old["authorizer_url"],
         "base_version_id"   => old["id"]
       }
-      Manager::Version.create(parameters)
+      ret, message = Manager::Version.create(parameters)
+      if ret == 201
+        puts "Application successfully created"
+      else
+        puts message
+      end
     end
 
     def self.app(name)
