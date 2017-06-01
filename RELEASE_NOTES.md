@@ -1,5 +1,12 @@
 # Cloudwalk CLI
 
+### 0.3.0 - 2017-05-31
+
+- Fix cloudwalk config env.
+- Turn ask and ask_secret methods more posix.
+- On upgrade-version switch support the send of application name without extension.
+- Improve upgrade-version messages and remove support to check Cwfile.
+
 ### 0.2.5 - 2017-05-30
 
 - Update main(1.4.7) to update posxml_parser (0.14.5).
