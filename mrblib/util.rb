@@ -6,12 +6,16 @@ module Util
   end
 
   def self.ask(str)
-    (`read -p "#{str}" value; echo $value`).chomp
+    puts str
+    value = gets.chomp
+    value
   end
 
   def self.ask_secret(str)
-    value = (`read -s -p "#{str}" value; echo $value`).chomp
-    puts ""
+    puts str
+    `stty -echo`
+    value = gets.chomp
+    `stty echo`
     value
   end
 end
