@@ -3099,12 +3099,7 @@ In case of sucess in this function, the content of the 'child' node will be copi
     </xs:attribute>
     <xs:attribute name="variablereturn" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>Variable that will store the result of the command, where:
-1: Command executed successfully.
-0: Node 'root', node 'child' or value of the 'child' node was not found in the xml.
--1: Error trying to open the xml file.
--2: Error parsing the xml file.
-        </xs:documentation>
+        <xs:documentation>Variable that will store the result of the command, where: 1: Command executed successfully.  0: Node 'root', node 'child' or value of the 'child' node was not found in the xml.  -1: Error trying to open the xml file.  -2: Error parsing the xml file. (integer) </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
