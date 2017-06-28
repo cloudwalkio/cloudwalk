@@ -1,5 +1,10 @@
 # Cloudwalk CLI
 
+### 0.3.1 - 2017-06-28
+
+- Fix posxml_en documentation for xml.getelment.
+- Update main (1.5.0).
+
 ### 0.3.0 - 2017-05-31
 
 - Fix cloudwalk config env.
