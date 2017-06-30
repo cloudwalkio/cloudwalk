@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 0.4.0 - 2017-06-30
+
+- Update main (1.6.0).
+
 ### 0.3.1 - 2017-06-28
 
 - Fix posxml_en documentation for xml.getelment.
