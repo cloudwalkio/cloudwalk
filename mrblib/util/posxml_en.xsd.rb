@@ -3122,15 +3122,7 @@ In case of sucess in this function, the content of the 'child' node will be copi
     </xs:attribute>
     <xs:attribute name="variablereturn" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>
-          Variable that will store the result of the command, where:
-          1: Command executed successfully.
-          0: json string was not found on the json.
-          -1: Error trying to open the json file.
-          -2: Error trying to extract data from the file(json value not found).
-          -3: Error parsing the json file.
-          -4: Error json object not found.
-        </xs:documentation>
+        <xs:documentation> Variable that will store the result of the command, where: 1: Command executed successfully.  0: json string was not found on the json.  -1: Error trying to open the json file.  -2: Error trying to extract data from the file(json value not found).  -3: Error parsing the json file.  -4: Error json object not found. (integer) </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
