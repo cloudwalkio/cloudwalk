@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 0.4.1 - 2017-07-11
+
+- Update posxml_en documentation for json.getelement.
+
 ### 0.4.0 - 2017-06-30
 
 - Update main (1.6.0).
