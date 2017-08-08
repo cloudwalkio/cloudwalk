@@ -1,5 +1,38 @@
 # Cloudwalk CLI
 
+### 0.5.0 - 2017-08-08
+
+- Add instructions is20022.new, iso20022.add and iso20022.build to Posxml XSD.
+- Create dir if compiling only one file to fix #3.
+- Add deploying message, close #2.
+- Display the size of compiled posxml.
+- Fix helper to upgrade-version.
+- Update main (1.15.0)
+    - Adopt print_last for PaymentChannel displays.
+    - Check if Device is connected on PaymentChannel life check.
+    - Refactoring primary_communication label return on PaymentChannel.
+    - Bug fix set media_primary on media configuration.
+    - Check if is main connection is running to validate fallback at ConnectionManagement.
+    - Additional check to ConnectionManagement before try primary connection recovery.
+    - Adopt Device::Network.shutdown at payment channel handlers and trigger fallback recovery if primary communication try has failed.
+    - Adopt print_last at CloudWalk and MediaConfiguration.
+    - Update cloudwalk_handshake (0.9.0)
+        - Add rescue for SSL exceptions.
+        - Add cloudwalk gem.
+    - da_funk (0.10.0)
+        - Define pt-br as default locale.
+        - Implement Kernel#print_last.
+        - Adopt print_last for Herlper#attach.
+        - Implement Device::Network.shutdown, what call disconnect and power(0).
+        - Update cloudwalk_handshake (0.9.0), funky-emv (0.9.0) and posxml_parser(0.16.0).
+    - posxml_parser (0.16.0)
+        - Add cloudwalk gem.
+        - Add ISO20022 initial implementation.
+        - Add 3 instructions related with ISO 20022:
+            - iso20022_new(document).
+            - iso20022_add(tag, value).
+            - iso20022_build(variablereturn, buffer).
+
 ### 0.4.1 - 2017-07-11
 
 - Update posxml_en documentation for json.getelement.
