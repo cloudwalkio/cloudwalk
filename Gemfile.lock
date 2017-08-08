@@ -3,18 +3,18 @@ GEM
   specs:
     archive-zip (0.9.0)
       io-like (~> 0.3.0)
-    cloudwalk_handshake (0.8.0)
-    da_funk (0.8.1)
+    cloudwalk_handshake (0.9.0)
+    da_funk (0.10.0)
       bundler (~> 1.7)
       cloudwalk_handshake (~> 0.6)
       funky-emv (~> 0.3)
-      posxml_parser (~> 0.6)
-      rake (~> 10.4)
-    funky-emv (0.5.7)
+      posxml_parser (~> 0)
+      rake (~> 10)
+    funky-emv (0.7.0)
       funky-tlv (~> 0.2)
-    funky-tlv (0.2.2)
+    funky-tlv (0.2.3)
     io-like (0.3.0)
-    posxml_parser (0.13.1)
+    posxml_parser (0.16.0)
       funky-emv (~> 0.3)
     rake (10.5.0)
 
@@ -25,3 +25,6 @@ DEPENDENCIES
   archive-zip
   da_funk
   rake
+
+BUNDLED WITH
+   1.15.1
