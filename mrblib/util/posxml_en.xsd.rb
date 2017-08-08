@@ -1757,6 +1757,42 @@ In case of sucess in this function, the content of the 'child' node will be copi
           <xs:documentation>Close a payment channel</xs:documentation>
         </xs:annotation>
       </xs:element>
+	    <xs:element name="iso20022.new" type="iso20022.new">
+        <xs:annotation>
+          <!-- ordem dos parametros -->
+          <xs:appinfo>document</xs:appinfo>
+          <!-- bytecode;tem parametros;declaracao ou chamada de funcao;declaracao de variavel; (startelement) -->
+          <xs:appinfo>\xa6;true;false;false</xs:appinfo>
+          <!-- bytecode;tem parametros;declaracao ou chamada de funcao;declaracao de variavel; (endelement) -->
+          <xs:appinfo>
+          </xs:appinfo>
+          <xs:documentation>Start ISO 20022 Payment message</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+	    <xs:element name="iso20022.add" type="iso20022.add">
+        <xs:annotation>
+          <!-- ordem dos parametros -->
+          <xs:appinfo>tag,value</xs:appinfo>
+          <!-- bytecode;tem parametros;declaracao ou chamada de funcao;declaracao de variavel; (startelement) -->
+          <xs:appinfo>\xa7;true;false;false</xs:appinfo>
+          <!-- bytecode;tem parametros;declaracao ou chamada de funcao;declaracao de variavel; (endelement) -->
+          <xs:appinfo>
+          </xs:appinfo>
+          <xs:documentation>Add a tag in a ISO 20022 Payment message</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+	    <xs:element name="iso20022.build" type="iso20022.build">
+        <xs:annotation>
+          <!-- ordem dos parametros -->
+          <xs:appinfo>variablereturn,buffer</xs:appinfo>
+          <!-- bytecode;tem parametros;declaracao ou chamada de funcao;declaracao de variavel; (startelement) -->
+          <xs:appinfo>\xa8;true;false;false</xs:appinfo>
+          <!-- bytecode;tem parametros;declaracao ou chamada de funcao;declaracao de variavel; (endelement) -->
+          <xs:appinfo>
+          </xs:appinfo>
+          <xs:documentation>Add a tag in a ISO 20022 Payment message</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:choice>
   </xs:group>
   <xs:complexType name="display">
@@ -4228,6 +4264,40 @@ x3: 99x99 pixels (can be used on the printer)
 	<xs:attribute name="socket" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>integer (Payment channel SSL socket to be closed)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="iso20022.new">
+    <xs:sequence />
+	  <xs:attribute name="document" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>string (Type of message to be started)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="iso20022.add">
+    <xs:sequence />
+	  <xs:attribute name="tag" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>string (Tag name to be add)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+	  <xs:attribute name="value" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>string (Tag value to be add)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="iso20022.build">
+    <xs:sequence />
+	  <xs:attribute name="variablereturn" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>integer (Variable that return if buffer was successufully built, 0: Success; <0: Error)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+	  <xs:attribute name="buffer" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>string (ISO 20022 message)</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
