@@ -59,7 +59,7 @@ module Cloudwalk
         request.set_form_data(form)
         response = http.request(request)
       end
-      [response.code == 200, response]
+      [response.code.to_i == 200, response]
     end
   end
 end

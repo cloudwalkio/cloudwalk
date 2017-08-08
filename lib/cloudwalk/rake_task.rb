@@ -46,7 +46,7 @@ module Cloudwalk
 
             posxml = Cloudwalk::CwFileJson.xml2posxml(out)
             platform_call "cloudwalk compile -xml -o #{posxml} #{xml}"
-            print " [#{File.size(posxml)}]"
+            puts "=> #{File.size(posxml)} "
           else
             FileUtils.rm_rf self.out_path
             FileUtils.mkdir_p self.out_path
@@ -54,7 +54,7 @@ module Cloudwalk
             self.libs.zip(self.outs).each do |file, out|
               posxml = Cloudwalk::CwFileJson.xml2posxml(out)
               platform_call "cloudwalk compile -xml -o #{posxml} #{file}"
-              print " [#{File.size(posxml)}]"
+              puts "=> #{File.size(posxml)} "
             end
           end
         end
