@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 0.5.1 - 2017-08-08
+
+- Fix compilation displays moments.
+
 ### 0.5.0 - 2017-08-08
 
 - Add instructions is20022.new, iso20022.add and iso20022.build to Posxml XSD.
