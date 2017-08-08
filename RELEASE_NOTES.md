@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 0.5.2 - 2017-08-08
+
+- Fix success deploy message.
+
 ### 0.5.1 - 2017-08-08
 
 - Fix compilation displays moments.
