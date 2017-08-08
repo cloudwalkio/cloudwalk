@@ -41,6 +41,7 @@ module Cloudwalk
         desc "Compile posxml"
         task :build do |t, args|
           if path = ARGV[1..-1].first
+            FileUtils.mkdir_p self.out_path
             xml, out  = self.libs.zip(self.outs).find { |file, out| file == path }
 
             posxml = Cloudwalk::CwFileJson.xml2posxml(out)
