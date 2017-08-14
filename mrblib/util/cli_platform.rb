@@ -66,7 +66,7 @@ class CliPlatform
     end
 
     def self.connected?
-      1
+      0
     end
 
     def self.signal
