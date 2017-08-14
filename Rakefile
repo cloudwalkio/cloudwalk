@@ -119,6 +119,11 @@ task :da_funk do
   sh "bundle exec rake"
 
   FileUtils.cd "out/main"
+
+  # Check \x00 on i18n, for some reason during docker compilation it appears
+  txt = File.read("i18n.json").gsub("\x00", "")
+  File.open("i18n.json", "w") {|f| f.write(txt) }
+
   FileUtils.rm_rf "./da_funk"
   Archive::Zip.archive "./da_funk", "./"
 
