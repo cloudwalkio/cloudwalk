@@ -1,5 +1,14 @@
 # Cloudwalk CLI
 
+### 0.6.0 - 2017-08-14
+
+- Temporarily fix on i18n.json moving, for some reason during the copy of i18n.json file on docker vm it comes with a number of \x00 at the end.
+- Fix CliPlatform return.
+- Implement pretty printer at CwFile.json.lock
+- Update main (1.17.0)
+    - Update da_funk (0.12.0)
+        - CommandLinePlatform.connected? return 0.
+
 ### 0.5.2 - 2017-08-08
 
 - Fix success deploy message.
