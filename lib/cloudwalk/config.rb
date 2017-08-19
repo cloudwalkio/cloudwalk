@@ -8,7 +8,7 @@ module Cloudwalk
 
     def self.host
       @host ||= `cloudwalk config host`.chomp
-      raise ManagerException.new("Token not found, try 'cloudwalk login'") if @host.empty?
+      raise ManagerException.new("Host not found, try 'cloudwalk login'") if @host.empty?
       @host
     end
   end
