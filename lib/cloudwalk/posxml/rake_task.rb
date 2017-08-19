@@ -14,6 +14,7 @@ require 'bundler/setup'
 module Cloudwalk
   module Posxml
     class RakeTask < ::Rake::TaskLib
+      include Cloudwalk::ManagerHelper
       include ::Rake::DSL if defined?(::Rake::DSL)
 
       attr_accessor :libs, :root_path, :main_out, :out_path, :outs
@@ -46,7 +47,7 @@ module Cloudwalk
               FileUtils.mkdir_p self.out_path
               xml, out  = self.libs.zip(self.outs).find { |file, out| file == path }
 
-              posxml = Cloudwalk::CwFileJson.xml2posxml(out)
+              posxml = xml2posxml(out)
               platform_call "cloudwalk compile -xml -o #{posxml} #{xml}"
               puts "=> #{File.size(posxml)} "
             else
@@ -54,7 +55,7 @@ module Cloudwalk
               FileUtils.mkdir_p self.out_path
 
               self.libs.zip(self.outs).each do |file, out|
-                posxml = Cloudwalk::CwFileJson.xml2posxml(out)
+                posxml = xml2posxml(out)
                 platform_call "cloudwalk compile -xml -o #{posxml} #{file}"
                 puts "=> #{File.size(posxml)} "
               end
