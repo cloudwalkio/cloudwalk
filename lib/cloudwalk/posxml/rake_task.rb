@@ -40,7 +40,8 @@ module Cloudwalk
       namespace :cloudwalk do
         desc "Compile posxml"
         task :build do |t, args|
-          if path = ARGV[1..-1].first
+          arguments = ARGV[1..-1]
+          if arguments && path = arguments.first
             FileUtils.mkdir_p self.out_path
             xml, out  = self.libs.zip(self.outs).find { |file, out| file == path }
 
@@ -80,9 +81,8 @@ module Cloudwalk
           Cloudwalk::CwFileJson.setup(true)
           Cloudwalk::CwFileJson.persist_lock!
         end
-
-        task :default => :build
       end
+      task :default => "cloudwalk:build"
     end
   end
 end
