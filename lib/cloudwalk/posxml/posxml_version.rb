@@ -1,6 +1,8 @@
 module Cloudwalk
   module Posxml
-    class PosxmlVersion < Cloudwalk::Manager
+    class PosxmlVersion
+      include Cloudwalk::ManagerHelper
+
       def self.get_or_create(app, version)
         response = JSON.parse(Net::HTTP.get(URI("#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
         raise ManagerException.new(response["message"]) if response["message"]

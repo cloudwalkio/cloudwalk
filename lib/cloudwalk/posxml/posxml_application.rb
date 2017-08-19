@@ -1,6 +1,8 @@
 module Cloudwalk
   module Posxml
-    class PosxmlApplication < Cloudwalk::Manager
+    class PosxmlApplication
+      include Cloudwalk::ManagerHelper
+
       def self.all
         if @apps
           @apps
