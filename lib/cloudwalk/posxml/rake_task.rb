@@ -67,13 +67,13 @@ module Cloudwalk
             if Cloudwalk::CwFileJson.setup
               if path = ARGV[1..-1].first
                 xml, out  = self.libs.zip(self.outs).find { |file, out| file == path }
-                Cloudwalk::CwFileJson.deploy([Cloudwalk::CwFileJson.xml2posxml(out)])
+                posxmls = [xml2posxml(out)]
               else
-                posxmls = self.outs.collect do |xml|
-                  Cloudwalk::CwFileJson.xml2posxml(xml)
-                end
-                Cloudwalk::CwFileJson.deploy(posxmls)
+                posxmls = self.outs.collect { |xml| xml2posxml(xml) }
               end
+              Cloudwalk::Posxml::Deploy.new(Cloudwalk::CwFileJson.cwfile,
+                                            Cloudwalk::CwFileJson.lock,
+                                            posxmls).perform
             end
           end
 

@@ -36,6 +36,19 @@ module Cloudwalk
         response
       end
 
+
+      # NEW
+      def self.find(app_name, version_name)
+        applications = Cloudwalk::Posxml::PosxmlApplication.all
+        app_remote   = applications.find { |app_json| app_json["posxml_app"]["name"] == xml2posxml(app_name) }
+        app_posxml   = app_remote["posxml_app"]
+        versions     = Cloudwalk::Posxml::PosxmlVersion.all(app_posxml["id"])
+        version      = versions.find { |json| json["app_version"]["number"] == version_name }
+
+        [app_posxml, (version || version["app_version"])]
+      end
+
+      # NEW B4
       def self.update(app_id, version_id, bytecode, app_parameters = nil)
         url      = "#{self.host}/v1/apps/posxml/#{app_id}/versions/#{version_id}?access_token=#{self.token}"
         uri      = URI(url)
