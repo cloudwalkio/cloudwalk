@@ -1,5 +1,33 @@
 # Cloudwalk CLI
 
+### 0.7.0 - 2017-08-29
+
+- Divide implementation between ruby and posxml.
+- Fix Config.host manager exception.
+- Remove commented code at cw_file_json.
+- Add Posxml module.
+- Implement ManagerHelper.
+- Mode xml to posxml method to helper.
+- First RubyApplication class implementation.
+- Support to create lock for Ruby and Posxml applications.
+- Fix cwfile expected format on lock generation for ruby runtime.
+- Refactoring cw_file_json to support mruby.
+- Add all new file to load on cloudwalk.rb.
+- Add Manager::RubyApplication.
+- Check if cwfile is set to check runtime on CwFileJson.
+- Add Posxml module in RakeTask call at Posxml Makefile creation.
+- Add support to create Ruby application.
+- Support Cwfile.json at Ruby application creation.
+- Refactoring lock generation adding exceptions.
+- Refactoring deploy processing fixing Posxml and Ruby details.
+- Fix cloudwalk:build and cloudwalk:package tasks.
+- Update main (1.22.0)
+    - Move cloudwalk.rb to cloudwalk_setup.rb.
+    - Add cloudwalk gem.
+    - Update da_funk (0.14.0)
+        - Add task to pack application.
+        - Fix cloudwlak run call at rake task.
+
 ### 0.6.0 - 2017-08-14
 
 - Temporarily fix on i18n.json moving, for some reason during the copy of i18n.json file on docker vm it comes with a number of \x00 at the end.
