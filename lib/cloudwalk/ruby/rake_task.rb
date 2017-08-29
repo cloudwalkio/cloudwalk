@@ -32,8 +32,8 @@ module Cloudwalk
           desc "Deploy all compiled applications based in Cwfile.json"
           task :deploy => "cloudwalk:package" do
             if Cloudwalk::CwFileJson.setup
-              Cloudwalk::Posxml::Deploy.new(Cloudwalk::CwFileJson.cwfile,
-                                            Cloudwalk::CwFileJson.lock).perform
+              Cloudwalk::Deploy.new(Cloudwalk::CwFileJson.cwfile,
+                                    Cloudwalk::CwFileJson.lock).ruby
             end
           end
 
