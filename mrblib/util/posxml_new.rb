@@ -90,7 +90,7 @@ require 'bundler/setup'
 
 Bundler.require(:default)
 
-Cloudwalk::RakeTask.new
+Cloudwalk::Posxml::RakeTask.new
 RAKEFILE
     end
 
