@@ -31,9 +31,11 @@ module Cloudwalk
       def self.get(app_id, id)
         url = "#{self.host}/v1/apps/posxml/#{app_id}/versions/#{id}?access_token=#{token}"
         response = JSON.parse(Net::HTTP.get(URI(url)))
-        raise ManagerException.new(response["message"]) if response["message"]
-
-        response
+        if response["message"]
+          raise ManagerException.new(response["message"]) 
+        else
+          response["app_version"]
+        end
       end
 
 
@@ -45,7 +47,7 @@ module Cloudwalk
         versions     = Cloudwalk::Posxml::PosxmlVersion.all(app_posxml["id"])
         version      = versions.find { |json| json["app_version"]["number"] == version_name }
 
-        [app_posxml, (version || version["app_version"])]
+        [app_posxml, (version && version["app_version"])]
       end
 
       # NEW B4
