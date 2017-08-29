@@ -1,7 +1,6 @@
 module Util
   class MrubyNew
     def self.run(name, cwfile)
-      cwfile["runtime"] = "ruby"
       Dir.mkdir(name) unless Dir.exist?(name)
       Dir.chdir(name) do
         write_file(".gitignore", gitignore)
@@ -56,16 +55,14 @@ IGNORE
     def self.cwfile_json(name, cwfile)
       <<CWFILE
 {
-  \"apps\":[
-    {
-      \"name\":\"#{name}.xml\",
-      \"modules\":{},
-      \"version\":\"1.0.0\",
-      \"authorizer_url\":\"#{cwfile["authorizer_url"]}\",
-      \"description\":\"#{cwfile["description"]}\",
-      \"pos_display_label\":\"#{cwfile["pos_display_label"]}\"
-    }
-  ]
+  \"name\":\"#{name}\",
+  \"runtime\": \"ruby\",
+  \"modules\":{
+  },
+  \"version\":\"1.0.0\",
+  \"authorizer_url\":\"#{cwfile["authorizer_url"]}\",
+  \"description\":\"#{cwfile["description"]}\",
+  \"pos_display_label\":\"#{cwfile["pos_display_label"]}\"
 }
 CWFILE
     end
@@ -90,7 +87,7 @@ require 'bundler/setup'
 
 Bundler.require(:default)
 
-Cloudwalk::Ruby::RakeTask.new do |t|
+Cloudwalk::Ruby::RakeTask.new
 
 DaFunk::RakeTask.new do |t|
   t.mrbc  = "cloudwalk compile"
