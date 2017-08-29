@@ -24,10 +24,14 @@ module Cloudwalk
       def define
         namespace :cloudwalk do
           desc "Compile ruby application"
-          task :build => :build
+          task :build do
+            Rake::Task[:build].invoke
+          end
 
           desc "Package Build"
-          task :package => :package
+          task :package do
+            Rake::Task[:package].invoke
+          end
 
           desc "Deploy all compiled applications based in Cwfile.json"
           task :deploy => "cloudwalk:package" do
