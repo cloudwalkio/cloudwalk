@@ -1,7 +1,16 @@
 module Cloudwalk
   class Deploy
+    include Cloudwalk::ManagerHelper
+
+    attr_accessor :cwfile, :lock
+
+    def initialize(cwfile, lock)
+      @cwfile = cwfile
+      @lock   = lock
+    end
+
     # TODO Check CRC
-    def self.posxml(outs)
+    def posxml(outs)
       outs.each do |path|
         posxml   = path.split("/").last
         print "=> Deploying #{posxml}"
@@ -16,12 +25,12 @@ module Cloudwalk
 
         unless app_lock
           # TODO Improve!
-          raise Exception.new("application or module #{path} not found in Manager, please create it")
+          raise DeployException.new("application or module #{path} not found in Manager, please create it")
         end
 
         app_cwfile = self.cwfile["apps"].find {|config| config["name"] == posxml2xml(posxml) }
 
-        ret, response = Cloudwalk::PosxmlVersion.update(
+        ret, response = Cloudwalk::Posxml::PosxmlVersion.update(
           app_lock["id"], app_lock["version_id"], File.read(path), app_cwfile
         )
         if ret
@@ -32,30 +41,33 @@ module Cloudwalk
       end
     end
 
-    def self.deploy_mruby(path)
-      zip         = path.split("/").last
-      application = zip.split(".").first
-
-      print "=> Deploying #{posxml}"
-      app_lock = self.lock.find {|config| config["name"] == application }
-
-      unless app_lock
-        # TODO Improve!
-        raise Exception.new("application or module #{path} not found in Manager, please create it")
-      end
-
-      app_cwfile = self.cwfile["apps"].find {|config| config["name"] == application }
-
-      ret, response = Cloudwalk::RubyApplication.update(
-        app_lock["id"], File.read(path), app_cwfile
-      )
-      if ret
-        STDOUT.write("\r=> Success Deployed                               \n")
-      else
-        STDOUT.write("\r=> Error #{response.code}:#{response.body}\n")
-      end
+    def name
+      self.cwfile["name"] 
     end
 
+    def ruby
+      zip = "out/#{self.name}.zip"
+      if File.exists? zip
+        print "=> Deploying #{self.name}"
 
+        app_lock = self.lock.find {|config| config["name"] == self.name }
+
+        unless app_lock
+          # TODO Improve!
+          raise DeployException.new("application #{self.name} not found at Manager, please create it")
+        end
+
+        ret, response = Cloudwalk::Ruby::RubyApplication.update(
+          app_lock["id"], File.read(zip), self.cwfile
+        )
+        if ret
+          STDOUT.write("\r=> Success Deployed                               \n")
+        else
+          STDOUT.write("\r=> Error #{response.code}:#{response.body}\n")
+        end
+      else
+        raise DeployException.new("application package #{zip} not found")
+      end
+    end
   end
 end

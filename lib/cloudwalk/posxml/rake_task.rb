@@ -71,9 +71,8 @@ module Cloudwalk
               else
                 posxmls = self.outs.collect { |xml| xml2posxml(xml) }
               end
-              Cloudwalk::Posxml::Deploy.new(Cloudwalk::CwFileJson.cwfile,
-                                            Cloudwalk::CwFileJson.lock,
-                                            posxmls).perform
+              Cloudwalk::Deploy.new(Cloudwalk::CwFileJson.cwfile,
+                                    Cloudwalk::CwFileJson.lock).posxml(posxmls)
             end
           end
 
