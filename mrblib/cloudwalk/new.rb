@@ -9,16 +9,20 @@ module Cloudwalk
         posxml = args.delete("-xml")
         self.name = args.first
 
-        if posxml
-          if check_parameters(args)
+        if check_parameters(args)
+          if posxml
             if cwfile = Manager::Application.create(self.name, self.pos_display_label,
                                                     self.description, self.displayable,
                                                     self.authorizer_url)
               Util::PosxmlNew.run(name, cwfile)
             end
+          else
+            if cwfile = Manager::RubyApplication.create(self.name, self.pos_display_label,
+                                                    self.description, self.displayable,
+                                                    self.authorizer_url)
+              Util::MrubyNew.run(name, cwfile)
+            end
           end
-        else
-          Util::MrubyNew.run(name)
         end
       else
         puts "User must login, execute: \"cloudwalk login\""

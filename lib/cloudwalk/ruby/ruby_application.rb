@@ -1,12 +1,11 @@
 module Cloudwalk
   module Ruby
-    class RubyApplication < Cloudwalk::Manager
+    class RubyApplication
       include Cloudwalk::ManagerHelper
 
       # NEW
       def self.find(name)
-        # [{"id":2381,"name":"icy-star-1","description":null,"created_via":"api","created_at":"2016-09-24T12:24:17.082-03:00"}]
-        application = self.all.select do |app|
+        self.all.find do |app|
           app["name"] == name
         end
       end
@@ -19,15 +18,15 @@ module Cloudwalk
           raise ManagerException.new(response["message"]) if response["message"]
 
           total_pages = response["pagination"]["total_pages"].to_i
-          apps = response["rubyapps"]
+          @apps = response["rubyapps"].collect {|r| r["ruby_app"] }
           (total_pages - 1).times do |page|
             url = "#{self.host}/v1/apps/ruby?access_token=#{self.token}&per_page=100&page=#{page+2}"
             response = JSON.parse(Net::HTTP.get(URI(url)))
             raise ManagerException.new(response["message"]) if response["message"]
 
-            apps.concat(response["ruby_app"])
+            @apps.concat(response["ruby_app"])
           end
-          @apps = apps
+          @apps
         end
       end
 
