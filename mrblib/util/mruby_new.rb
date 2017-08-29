@@ -1,10 +1,12 @@
 module Util
   class MrubyNew
-    def self.run(name)
+    def self.run(name, cwfile)
+      cwfile["runtime"] = "ruby"
       Dir.mkdir(name) unless Dir.exist?(name)
       Dir.chdir(name) do
         write_file(".gitignore", gitignore)
         write_file("Gemfile", gemfile)
+        write_file("Cwfile.json", cwfile_json(name, cwfile))
         write_file("Rakefile", rakefile)
         create_dir_p("lib")
         write_file("lib/main.rb", main)
@@ -51,6 +53,23 @@ IGNORE
       File.open(file, 'w') {|file| file.puts contents }
     end
 
+    def self.cwfile_json(name, cwfile)
+      <<CWFILE
+{
+  \"apps\":[
+    {
+      \"name\":\"#{name}.xml\",
+      \"modules\":{},
+      \"version\":\"1.0.0\",
+      \"authorizer_url\":\"#{cwfile["authorizer_url"]}\",
+      \"description\":\"#{cwfile["description"]}\",
+      \"pos_display_label\":\"#{cwfile["pos_display_label"]}\"
+    }
+  ]
+}
+CWFILE
+    end
+
     def self.gemfile
       <<GEMFILE
 source 'https://rubygems.org'
@@ -70,6 +89,8 @@ require 'fileutils'
 require 'bundler/setup'
 
 Bundler.require(:default)
+
+Cloudwalk::Ruby::RakeTask.new do |t|
 
 DaFunk::RakeTask.new do |t|
   t.mrbc  = "cloudwalk compile"
