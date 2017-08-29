@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 0.7.1 - 2017-08-29
+
+- Fix ruby Cwfile.json and Rakefile creation.
+
 ### 0.7.0 - 2017-08-29
 
 - Divide implementation between ruby and posxml.
