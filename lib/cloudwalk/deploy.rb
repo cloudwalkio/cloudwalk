@@ -25,7 +25,7 @@ module Cloudwalk
 
         unless app_lock
           # TODO Improve!
-          raise DeployException.new("application or module #{path} not found in Manager, please create it")
+          raise Cloudwalk::DeployException.new("application or module #{path} not found in Manager, please create it")
         end
 
         app_cwfile = self.cwfile["apps"].find {|config| config["name"] == posxml2xml(posxml) }
@@ -42,7 +42,7 @@ module Cloudwalk
     end
 
     def name
-      self.cwfile["name"] 
+      self.cwfile["name"]
     end
 
     def ruby
@@ -54,7 +54,7 @@ module Cloudwalk
 
         unless app_lock
           # TODO Improve!
-          raise DeployException.new("application #{self.name} not found at Manager, please create it")
+          raise Cloudwalk::DeployException.new("application #{self.name} not found at Manager, please create it")
         end
 
         ret, response = Cloudwalk::Ruby::RubyApplication.update(
@@ -66,7 +66,7 @@ module Cloudwalk
           STDOUT.write("\r=> Error #{response.code}:#{response.body}\n")
         end
       else
-        raise DeployException.new("application package #{zip} not found")
+        raise Cloudwalk::DeployException.new("application package #{zip} not found")
       end
     end
   end
