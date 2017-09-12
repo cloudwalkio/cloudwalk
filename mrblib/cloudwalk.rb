@@ -16,6 +16,8 @@ def __main__(argv)
     Cloudwalk::Mruby.console
   when "about"
     Cloudwalk::About.run
+  when "sign-up"
+    Cloudwalk::SignUp.run
   when "login"
     Cloudwalk::Login.run
   when "logout"
