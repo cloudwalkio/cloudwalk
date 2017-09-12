@@ -1,5 +1,18 @@
 # Cloudwalk CLI
 
+### 0.8.0 - 2017-09-12
+
+- Fix DeployException.
+- Add libreadline and mingw tools to improve cloudwalk console.
+- Fix binary selection.
+- Add readline include to compilation.
+- Refactoring app command to support only 2 arguments list and new.
+- Implement sign-up command.
+- Implement release (list, promote and new) command.
+- Update help with new commands (app and release).
+- Start a new runtime at cloudwalk console and avoid exception stop interruption.
+- Update main (1.28.0).
+
 ### 0.7.1 - 2017-08-29
 
 - Fix ruby Cwfile.json and Rakefile creation.
