@@ -1,4 +1,29 @@
 def gem_config(conf)
+  if conf.cc.search_header_path 'readline/readline.h'
+    conf.cc.defines << "ENABLE_READLINE"
+    if conf.cc.search_header_path 'termcap.h'
+      if MRUBY_BUILD_HOST_IS_CYGWIN || MRUBY_BUILD_HOST_IS_OPENBSD
+        if conf.cc.search_header_path 'termcap.h'
+          if MRUBY_BUILD_HOST_IS_CYGWIN then
+            conf.linker.libraries << 'ncurses'
+          else
+            conf.linker.libraries << 'termcap'
+          end
+        end
+      end
+    end
+    if RUBY_PLATFORM.include?('netbsd')
+      conf.linker.libraries << 'edit'
+    else
+      conf.linker.libraries << 'readline'
+      if conf.cc.search_header_path 'curses.h'
+        conf.linker.libraries << 'ncurses'
+      end
+    end
+  elsif conf.cc.search_header_path 'linenoise.h'
+    conf.cc.defines << "ENABLE_LINENOISE"
+  end
+
   conf.gem :core => "mruby-sprintf"
   conf.gem :mgem => 'mruby-mtest'
   conf.gem :core => "mruby-print"
