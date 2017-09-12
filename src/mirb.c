@@ -249,7 +249,7 @@ check_keyword(const char *buf, const char *word)
 /*static mrb_value*/
 /*main(int argc, char **argv)*/
 mrb_value
-mrb_mruby_cli_mirb(mrb_state *mrb, mrb_value klass)
+mrb_mruby_cli_mirb(mrb_state *mrb2, mrb_value klass)
 {
   char ruby_code[1024] = { 0 };
   char last_code_line[1024] = { 0 };
@@ -261,12 +261,19 @@ mrb_mruby_cli_mirb(mrb_state *mrb, mrb_value klass)
 #endif
   mrbc_context *cxt;
   struct mrb_parser_state *parser;
-  /*mrb_state *mrb;*/
+  mrb_state *mrb;
   mrb_value result;
   struct _args args;
   mrb_bool code_block_open = FALSE;
   int ai;
   unsigned int stack_keep = 0;
+
+  /* new interpreter instance */
+  mrb = mrb_open();
+  if (mrb == NULL) {
+    fputs("Invalid mrb interpreter, exiting mirb\n", stderr);
+    return mrb_fixnum_value(EXIT_FAILURE);
+  }
 
 #ifdef ENABLE_READLINE
   history_path = get_history_path(mrb);
@@ -364,8 +371,7 @@ mrb_mruby_cli_mirb(mrb_state *mrb, mrb_value klass)
       if (0 < parser->nerr) {
         /* syntax error */
         printf("line %d: %s\n", parser->error_buffer[0].lineno, parser->error_buffer[0].message);
-      }
-      else {
+      } else {
         /* generate bytecode */
         struct RProc *proc = mrb_generate_code(mrb, parser);
         if (proc == NULL) {
