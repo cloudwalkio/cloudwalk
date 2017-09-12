@@ -28,6 +28,8 @@ def __main__(argv)
     Cloudwalk::App.run(*argv[2..-1])
   when "package"
     Cloudwalk::Package.run(*argv[2..-1])
+  when "release"
+    Cloudwalk::Release.run(*argv[2..-1])
   else
     Cloudwalk::Help.run
   end
