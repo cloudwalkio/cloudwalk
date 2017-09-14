@@ -1,5 +1,12 @@
 # Cloudwalk CLI
 
+### 0.9.0 - 2017-09-14
+
+- Add license to README.
+- Add message after success signup.
+- Add README to mruby app generation.
+- Add README to POSXML app generation.
+
 ### 0.8.0 - 2017-09-12
 
 - Fix DeployException.
