@@ -3,6 +3,7 @@ module Util
     def self.run(name, cwfile)
       Dir.mkdir(name) unless Dir.exist?(name)
       Dir.chdir(name) do
+        write_file("README.md", readme)
         write_file(".gitignore", gitignore)
         write_file("Gemfile", gemfile)
         write_file("Cwfile.json", cwfile_json(name, cwfile))
@@ -15,6 +16,61 @@ module Util
         write_file("test/unit/#{name}_test.rb", unit(name))
         write_file("test/integration/#{name}_test.rb", integration)
       end
+    end
+
+    def self.readme
+      <<IGNORE
+# POSXML Application
+
+## Usage
+
+### Setup
+
+With Ruby installed and repository cloned, execute in root of repo:
+
+    bundle install # Install CloudWalk CLI
+    
+### Files and Directories
+
+- `lib/` Contain .xml files that will be compiled.
+- `test/` Contain all ruby files for test.
+- `Gemfile/Gemfile.lock` Manage CloudWalk CLI version and any other Ruby gem, do not touch at `Gemfile.lock`
+- `Cwfile.json` Manage Application attributes, application version and application modules versions.
+- `Cwfile.json.lock` Contain the id's for all versions managed by `Cwfile.json`. **DO NOT MODIFY THIS FILE, IT'S AUTOMATICA GENERATED**
+- `Rakefile` Defition of task files.
+- `out` Contain the .posxml files compiled by tasks.
+    
+### Compiling
+
+Compile all ./lib/*.xml files:
+
+    bundle exec rake cloudwalk:build
+    
+Compile a unique file
+
+    bundle exec rake cloudwalk:build <lib/file.xml>
+    
+
+### Deploying
+
+Deploying all ./lib/*.xml files:
+
+    bundle exec rake cloudwalk:deploy
+    
+Deploy a unique file
+
+    bundle exec rake cloudwalk:deploy <lib/path/to/file.xml>
+    
+### Create POSXML application or module version
+
+1. Generate new application `cloudwalk release new <app name> <old>..<new>`
+
+2. If it's a module change version relation between application and module at Manager.
+
+3. Change `Cwfile.json` with the version you just created.
+
+4. Regenerate `Cwfile.json.lock` executing `bundle exec rake cloudwalk:update`
+IGNORE
     end
 
     def self.gitignore
