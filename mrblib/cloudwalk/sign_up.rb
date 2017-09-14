@@ -11,6 +11,7 @@ module Cloudwalk
       puts ""
       ret, err = Manager::User.sign_up(name, email, pass)
       if ret
+        puts "Success!"
         puts "Please check confirmation e-mail before execute cloudwalk login"
       else
         puts "Problem to sign-up: #{err}"
