@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 1.1.0 - 2018-01-10
+
+- Apply mrbc and mruby from MRuby 1.3.0 and create a new runtime for both execution.
+
 ### 1.0.0 - 2018-01-10
 
 - Fix da_funk file creation, the code had problem during zip creation causing an infinite loop.
