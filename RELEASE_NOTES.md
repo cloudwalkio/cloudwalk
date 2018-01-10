@@ -1,5 +1,13 @@
 # Cloudwalk CLI
 
+### 1.0.0 - 2018-01-10
+
+- Fix da_funk file creation, the code had problem during zip creation causing an infinite loop.
+- Review mgems and move to MRuby 1.3.0.
+- Update README adding #Setup chapter.
+- Add all compose command.
+- Update main (1.48.0).
+
 ### 0.9.0 - 2017-09-14
 
 - Add license to README.
