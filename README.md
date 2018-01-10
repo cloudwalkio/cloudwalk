@@ -2,7 +2,23 @@
 
 Cloudwalk CLI is the CLI to create, pack, run and test posxml and DaFunk projects. Cloudwalk CLI  was created using mruby-cli.
 
-## Install
+## Setup
+
+- You'll need the following installed and in your `PATH`:
+    - [Docker](https://docs.docker.com/installation/)
+    - [Docker Compose](https://docs.docker.com/compose/install/)
+
+- Docker Setup
+  - `docker-compose build`
+  - `docker-compose run all`
+
+Each app will be generated with a Dockerfile that inherits a base image. You can pull the image from docker hub here: https://registry.hub.docker.com/u/scalone/cloudwalk-cli/
+
+- Compile
+    - `docker-compose run compile`
+
+
+## Bin Install
 
 - Donwnload the lastest version(remember to rename to cloudwalk) based in your OS [here](https://github.com/cloudwalkio/cloudwalk/releases/latest).
 - (Performance loss, not recomendated) Or You can install it in Ruby environment with as gem `gem install cloudwalk`.
