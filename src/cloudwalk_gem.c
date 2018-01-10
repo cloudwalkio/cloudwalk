@@ -143,6 +143,13 @@ parse_args(mrb_state *mrb, int argc, char **argv, struct mrbc_args *args)
   return i;
 }
 
+static void
+cleanup(mrb_state *mrb, struct mrbc_args *args)
+{
+  mrb_free(mrb, (void*)args->outfile);
+  mrb_close(mrb);
+}
+
 static int
 partial_hook(struct mrb_parser_state *p)
 {
@@ -233,6 +240,7 @@ mrb_mruby_cli_mrbc(mrb_state *mrb, mrb_value klass)
   struct mrbc_args args;
   mrb_int n, result, i, argc;
   mrb_value load, array, element;
+  mrb_state *mrb2 = mrb_open();
 
   mrb_get_args(mrb, "io", &argc, &array);
 
@@ -241,19 +249,19 @@ mrb_mruby_cli_mrbc(mrb_state *mrb, mrb_value klass)
     argv[i] = RSTRING_PTR(element);
   }
 
-  if (mrb == NULL) {
+  if (mrb2 == NULL) {
     fputs("Invalid mrb_state, exiting cloudwalk\n", stderr);
     return mrb_fixnum_value(EXIT_FAILURE);
   }
 
-  n = parse_args(mrb, argc, argv, &args);
+  n = parse_args(mrb2, argc, argv, &args);
   if (n == argc) {
     fprintf(stderr, "%s: no program file given\n", args.prog);
     return mrb_fixnum_value(EXIT_FAILURE);
   }
   if (args.outfile == NULL && !args.check_syntax) {
     if (n + 1 == argc) {
-      args.outfile = get_outfilename(mrb, argv[n], args.initname ? C_EXT : RITEBIN_EXT);
+      args.outfile = get_outfilename(mrb2, argv[n], args.initname ? C_EXT : RITEBIN_EXT);
     }
     else {
       fprintf(stderr, "%s: output file should be specified to compile multiple files\n", args.prog);
@@ -262,7 +270,7 @@ mrb_mruby_cli_mrbc(mrb_state *mrb, mrb_value klass)
   }
 
   args.idx = n;
-  load = load_file(mrb, &args);
+  load = load_file(mrb2, &args);
   if (mrb_nil_p(load)) {
     return mrb_fixnum_value(EXIT_FAILURE);
   }
@@ -287,8 +295,9 @@ mrb_mruby_cli_mrbc(mrb_state *mrb, mrb_value klass)
     fprintf(stderr, "Output file is required\n");
     return mrb_fixnum_value(EXIT_FAILURE);
   }
-  result = dump_file(mrb, wfp, args.outfile, mrb_proc_ptr(load), &args);
+  result = dump_file(mrb2, wfp, args.outfile, mrb_proc_ptr(load), &args);
   fclose(wfp);
+  cleanup(mrb2, &args);
   if (result != MRB_DUMP_OK) {
     return mrb_fixnum_value(EXIT_FAILURE);
   }
