@@ -155,6 +155,17 @@ append_cmdline:
   return EXIT_SUCCESS;
 }
 
+static void
+cleanup(mrb_state *mrb, struct _args *args)
+{
+  if (args->rfp && args->rfp != stdin)
+    fclose(args->rfp);
+  if (!args->fname)
+    mrb_free(mrb, args->cmdline);
+  mrb_free(mrb, args->argv);
+  mrb_close(mrb);
+}
+
 mrb_value
 mrb_mruby_cli_mruby(mrb_state *mrb, mrb_value klass)
 {
@@ -167,6 +178,7 @@ mrb_mruby_cli_mruby(mrb_state *mrb, mrb_value klass)
   mrb_value v, array, element;
   mrb_sym zero_sym;
   mrb_int argc;
+  mrb_state *mrb2 = mrb_open();
 
   mrb_get_args(mrb, "io", &argc, &array);
 
@@ -175,70 +187,78 @@ mrb_mruby_cli_mruby(mrb_state *mrb, mrb_value klass)
     argv[i] = RSTRING_PTR(element);
   }
 
-  if (mrb == NULL) {
+  if (mrb2 == NULL) {
     fputs("Invalid mrb_state, exiting mruby\n", stderr);
     return mrb_fixnum_value(EXIT_FAILURE);
   }
 
-  n = parse_args(mrb, argc, argv, &args);
+  n = parse_args(mrb2, argc, argv, &args);
   if (n == EXIT_FAILURE || (args.cmdline == NULL && args.rfp == NULL)) {
+    cleanup(mrb2, &args);
     usage(argv[0]);
     return mrb_fixnum_value(n);
   }
+  else {
+    int ai = mrb_gc_arena_save(mrb2);
+    ARGV = mrb_ary_new_capa(mrb2, args.argc);
+    for (i = 0; i < args.argc; i++) {
+      char* utf8 = mrb_utf8_from_locale(args.argv[i], -1);
+      if (utf8) {
+        mrb_ary_push(mrb2, ARGV, mrb_str_new_cstr(mrb, utf8));
+        mrb_utf8_free(utf8);
+      }
+    }
+    mrb_define_global_const(mrb2, "ARGV", ARGV);
 
-  ARGV = mrb_ary_new_capa(mrb, args.argc);
-  for (i = 0; i < args.argc; i++) {
-    char* utf8 = mrb_utf8_from_locale(args.argv[i], -1);
-    if (utf8) {
-      mrb_ary_push(mrb, ARGV, mrb_str_new_cstr(mrb, utf8));
+    c = mrbc_context_new(mrb2);
+    if (args.verbose)
+      c->dump_result = TRUE;
+    if (args.check_syntax)
+      c->no_exec = TRUE;
+
+    /* Set $0 */
+    zero_sym = mrb_intern_lit(mrb2, "$0");
+    if (args.rfp) {
+      const char *cmdline;
+      cmdline = args.cmdline ? args.cmdline : "-";
+      mrbc_filename(mrb2, c, cmdline);
+      mrb_gv_set(mrb2, zero_sym, mrb_str_new_cstr(mrb2, cmdline));
+    }
+    else {
+      mrbc_filename(mrb2, c, "-e");
+      mrb_gv_set(mrb2, zero_sym, mrb_str_new_lit(mrb2, "-e"));
+    }
+
+    /* Load program */
+    if (args.mrbfile) {
+      v = mrb_load_irep_file_cxt(mrb2, args.rfp, c);
+    }
+    else if (args.rfp) {
+      v = mrb_load_file_cxt(mrb2, args.rfp, c);
+    }
+    else {
+      char* utf8 = mrb_utf8_from_locale(args.cmdline, -1);
+      if (!utf8) abort();
+      v = mrb_load_string_cxt(mrb2, utf8, c);
       mrb_utf8_free(utf8);
     }
-  }
-  mrb_define_global_const(mrb, "ARGV", ARGV);
 
-  c = mrbc_context_new(mrb);
-  if (args.verbose)
-    c->dump_result = TRUE;
-  if (args.check_syntax)
-    c->no_exec = TRUE;
-
-  /* Set $0 */
-  zero_sym = mrb_intern_lit(mrb, "$0");
-  if (args.rfp) {
-    const char *cmdline;
-    cmdline = args.cmdline ? args.cmdline : "-";
-    mrbc_filename(mrb, c, cmdline);
-    mrb_gv_set(mrb, zero_sym, mrb_str_new_cstr(mrb, cmdline));
-  }
-  else {
-    mrbc_filename(mrb, c, "-e");
-    mrb_gv_set(mrb, zero_sym, mrb_str_new_lit(mrb, "-e"));
-  }
-
-  /* Load program */
-  if (args.mrbfile) {
-    v = mrb_load_irep_file_cxt(mrb, args.rfp, c);
-  }
-  else if (args.rfp) {
-    v = mrb_load_file_cxt(mrb, args.rfp, c);
-  }
-  else {
-    char* utf8 = mrb_utf8_from_locale(args.cmdline, -1);
-    if (!utf8) abort();
-    v = mrb_load_string_cxt(mrb, utf8, c);
-    mrb_utf8_free(utf8);
-  }
-
-  mrbc_context_free(mrb, c);
-  if (mrb->exc) {
-    if (!mrb_undef_p(v)) {
-      mrb_print_error(mrb);
+    mrb_gc_arena_restore(mrb2, ai);
+    mrbc_context_free(mrb2, c);
+    if (mrb2->exc) {
+      if (mrb_undef_p(v)) {
+        mrb_p(mrb2, mrb_obj_value(mrb2->exc));
+      }
+      else {
+        mrb_print_error(mrb2);
+      }
+      n = -1;
     }
-    n = -1;
+    else if (args.check_syntax) {
+      printf("Syntax OK\n");
+    }
   }
-  else if (args.check_syntax) {
-    printf("Syntax OK\n");
-  }
+  cleanup(mrb2, &args);
 
   return n == 0 ? mrb_fixnum_value(EXIT_SUCCESS) : mrb_fixnum_value(EXIT_FAILURE);
 }
