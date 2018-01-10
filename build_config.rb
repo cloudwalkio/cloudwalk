@@ -57,19 +57,16 @@ def gem_config(conf)
   conf.gem :mgem => "mruby-socket"
   conf.gem :mgem => "mruby-pack"
   conf.gem :mgem => "mruby-polarssl"
-  #conf.gem :github => "sadasant/mruby-qrcode", :check_sum => "83205181508fe77f9fa7e556002334e439bcbc7b"
-  conf.gem :github => "scalone/mruby-miniz"
+  #conf.gem :github => "scalone/mruby-qrcode", :branch => "inverted"
+  conf.gem :mgem => "mruby-miniz"
   conf.gem :mgem => "mruby-sleep"
-  conf.gem :mgem => "mruby-msgpack"
   conf.gem :mgem => "mruby-json"
   conf.gem :github => "scalone/mruby-context"
-  conf.gem :github => "scalone/mruby-ripemd"
-  conf.gem :github => "scalone/mruby-hmac"
+  conf.gem :mgem => "mruby-ripemd"
+  conf.gem :mgem => "mruby-hmac"
   conf.gem :mgem => "mruby-sha2"
   conf.gem :github => "scalone/mruby-sha1"
   conf.gem :mgem => "mruby-base58"
-  conf.gem :mgem => "mruby-bignum"
-
   conf.gem :mgem => "mruby-http"
 
   # be sure to include this gem (the cli app)
