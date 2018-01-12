@@ -7,7 +7,7 @@ module Cloudwalk
       puts "cloudwalk login                                  : perform cloudwalk.io authentication"
       puts "cloudwalk logout                                 : perform cloudwalk.io logoff"
       puts "cloudwalk new <name>                             : create app, with: -xml to xml app"
-      puts "cloudwalk compile -o<out> <file1> <file2>        : compile ruby to mrb"
+      puts "cloudwalk compile -o<out> <file1> <file2>        : compile ruby to mrb, posxml(-xml), xml2rb(-txml)"
       puts "cloudwalk run -b <out>, <file1>                  : run ruby or binary file"
       puts "cloudwalk app                                    : arguments list or new"
       puts "cloudwalk console                                : mirb console"
