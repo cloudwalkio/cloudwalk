@@ -85,7 +85,7 @@ MRuby::Build.new do |conf|
   conf.gem :mgem => 'mruby-mtest'
   conf.gem :core => "mruby-print"
 
-  #gem_config(conf)
+  gem_config(conf)
 end
 
 MRuby::Build.new('x86_64-pc-linux-gnu') do |conf|
