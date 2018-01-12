@@ -143,7 +143,7 @@ module Cloudwalk
 
     def self.valid_parameters?
       if logical_check = self.logical_number.to_s.empty?
-        puts "Logical Number must be send, e.g.: cloudwalk package LOGICAL_NUMBER=10009" 
+        puts "Logical Number must be send, e.g.: cloudwalk package LOGICAL_NUMBER=10009"
       end
 
       if serial_check = self.serial_number.to_s.empty?
