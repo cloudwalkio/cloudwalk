@@ -1,5 +1,12 @@
 # Cloudwalk CLI
 
+### 1.2.0 - 2018-01-12
+
+- Remove whitespace at package.rb.
+- Add all gems to host compilation.
+- Add translation (xml to ruby via posxml_parser) option on compilation switch with the flag -txml.
+- Update main (1.51.0)
+
 ### 1.1.0 - 2018-01-10
 
 - Apply mrbc and mruby from MRuby 1.3.0 and create a new runtime for both execution.
