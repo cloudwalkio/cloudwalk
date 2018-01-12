@@ -1,5 +1,10 @@
 # Cloudwalk CLI
 
+### 1.2.1 - 2018-01-12
+
+- Replace current mruby-socket repo for cloudwalkio/mruby-socket that fix a MRuby instruction parse problem. This fix open sockets system error.
+- Get mruby-require from mgem.
+
 ### 1.2.0 - 2018-01-12
 
 - Remove whitespace at package.rb.
