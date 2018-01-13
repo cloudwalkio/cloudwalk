@@ -1,5 +1,13 @@
 # Cloudwalk CLI
 
+### 1.3.0 - 2018-01-13
+
+- Check TCPSocket class from Object instead of Module at CloduwalkHttp class.
+- Replace $stdout.getc by gets on company selection.
+- Fix company selection return the selected company.
+- Adopt sclaone/mruby-require branch set-target-class.
+- Adopt mruby hash 623436276e9650ce60c64bc24bfd430aab8a4193 (1.3+).
+
 ### 1.2.1 - 2018-01-12
 
 - Replace current mruby-socket repo for cloudwalkio/mruby-socket that fix a MRuby instruction parse problem. This fix open sockets system error.
