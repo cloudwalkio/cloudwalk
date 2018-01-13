@@ -41,7 +41,8 @@ module Cloudwalk
 
     def self.select_company(companies)
       loop do
-        break if self.input_company(companies)
+        company = self.input_company(companies)
+        break(company) if company
       end
     end
   end
