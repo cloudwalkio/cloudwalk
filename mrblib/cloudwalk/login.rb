@@ -34,7 +34,7 @@ module Cloudwalk
           puts "#{i} - #{company[0]["company_name"]}"
           hash
         end
-        key = $stdout.getc.chomp
+        key = gets.chomp
         options[key.to_i] unless key.empty?
       end
     end
