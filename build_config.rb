@@ -53,7 +53,7 @@ def gem_config(conf)
   conf.gem :mgem => "mruby-io"
   conf.gem :mgem => "mruby-dir"
   conf.gem :mgem => "mruby-tempfile"
-  conf.gem :mgem => "mruby-require"
+  conf.gem :github => "scalone/mruby-require", :branch => "set-target-class"
   conf.gem :github => "cloudwalkio/mruby-socket", :branch => "no-force"
   conf.gem :mgem => "mruby-pack"
   conf.gem :mgem => "mruby-polarssl"
