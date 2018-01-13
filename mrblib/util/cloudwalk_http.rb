@@ -31,10 +31,9 @@ module Util
     end
 
     def socket_class_exist?
-      c = Module.const_get("TCPSocket")
-      c.is_a?(Class)
-    rescue
-      return false
+      if Object.const_defined?(:TCPSocket)
+        TCPSocket.is_a? Class
+      end
     end
 
     def uv_module_exist?
