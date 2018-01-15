@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 1.4.0 - 2018-01-15
+
+- Move back to MRuby 1.3.0.
+
 ### 1.3.0 - 2018-01-13
 
 - Check TCPSocket class from Object instead of Module at CloduwalkHttp class.
