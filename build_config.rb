@@ -55,7 +55,7 @@ def gem_config(conf)
   conf.gem :mgem => "mruby-tempfile"
   conf.gem :github => "iij/mruby-require"
   conf.gem :github => "cloudwalkio/mruby-socket", :branch => "no-force"
-  conf.gem :mgem => "mruby-pack"
+  conf.gem :github => "mruby-pack", :checksum_hash => "88a7fedea413568a1ff0410e109ff55a03b63a5f"
   conf.gem :mgem => "mruby-polarssl"
   #conf.gem :github => "scalone/mruby-qrcode", :branch => "inverted"
   conf.gem :mgem => "mruby-miniz"
