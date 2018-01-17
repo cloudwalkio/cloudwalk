@@ -3,7 +3,7 @@ require 'fileutils'
 MRUBY_VERSION="1.2.0"
 
 file :mruby do
-  sh "git clone --branch 1.3.0 https://github.com/mruby/mruby "
+  sh "git clone --branch 1.3.0 https://github.com/mruby/mruby.git "
 end
 
 APP_NAME=ENV["APP_NAME"] || "cloudwalk"
