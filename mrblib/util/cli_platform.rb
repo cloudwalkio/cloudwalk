@@ -1,6 +1,7 @@
 module Kernel
   def getc(timeout = 0)
-    gets.chomp[0]
+    usleep(timeout * 1000)
+    "\e"
   end
 end
 
