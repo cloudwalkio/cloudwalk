@@ -1,5 +1,11 @@
 # Cloudwalk CLI
 
+### 1.4.1 - 2018-01-15
+
+- Replace mgem/mruby-require for GitHub iij/mruby-require.
+- Replace ::Device for ::DaFunk.
+- Update main (1.53.0).
+
 ### 1.4.0 - 2018-01-15
 
 - Move back to MRuby 1.3.0.
