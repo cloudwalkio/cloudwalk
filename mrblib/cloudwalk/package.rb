@@ -60,8 +60,8 @@ module Cloudwalk
       self.setup_tmp_dir
       self.setup_platform
 
-      Device::ParamsDat.download
-      Device::ParamsDat.update_apps
+      DaFunk::ParamsDat.download
+      DaFunk::ParamsDat.update_apps
       PosxmlParser::PosxmlSetting.numerodestepos
     end
 
