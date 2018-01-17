@@ -1,5 +1,11 @@
 # Cloudwalk CLI
 
+### 1.4.2 - 2018-01-17
+
+- Update mruby-pack checksum commit point.
+- Temporarily fix to Kernel.getc.
+- Fix mruby-pack GitHub configuration.
+
 ### 1.4.1 - 2018-01-15
 
 - Replace mgem/mruby-require for GitHub iij/mruby-require.
