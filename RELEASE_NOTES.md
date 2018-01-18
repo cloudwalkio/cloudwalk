@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 1.4.3 - 2018-01-18
+
+- Return timeout key at Kernel.getc.
+
 ### 1.4.2 - 2018-01-17
 
 - Update mruby-pack checksum commit point.
