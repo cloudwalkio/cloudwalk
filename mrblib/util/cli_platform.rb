@@ -1,7 +1,7 @@
 module Kernel
   def getc(timeout = 0)
     usleep(timeout * 1000)
-    "\e"
+    Device::IO::KEY_TIMEOUT
   end
 end
 
