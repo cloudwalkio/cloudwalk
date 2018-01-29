@@ -19,6 +19,14 @@ module Manager
       apps || []
     end
 
+    def self.find(name)
+      name = name.gsub(".posxml", "").gsub(".xml", "")
+      application = self.all.find do |app|
+        app["posxml_app"]["name"].gsub(".posxml", "") == name
+      end
+      application["posxml_app"] if application
+    end
+
     def self.token
       Cloudwalk::Config.token
     end
