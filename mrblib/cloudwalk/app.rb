@@ -63,7 +63,7 @@ module Cloudwalk
           if ! txt.empty?
             @cwfile = JSON.parse(txt)
           else
-            puts "deu ruim"
+            puts "Cwfile.json empty!"
           end
         end
       end
