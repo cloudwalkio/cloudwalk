@@ -4,7 +4,8 @@ module Cloudwalk
     CW_FILE_LOCK_PATH = "./Cwfile.json.lock"
     COMMANDS          = [
       "list",
-      "new"
+      "new",
+      "delete"
     ]
 
     class << self
@@ -27,6 +28,8 @@ module Cloudwalk
         Cloudwalk::App.list
       when "new"
         Cloudwalk::New.run(self.application || "")
+      when "delete"
+        Cloudwalk::App.delete(self.application)
       else
         self.help
       end
@@ -50,10 +53,38 @@ module Cloudwalk
       end
     end
 
+    def self.delete(application)
+      type, app = self.find(application)
+      if app && type == :ruby
+        app_name = Util.ask("READ THIS:\nThis action will permanently delete the application #{application}, and can only be concluded if you delete all associations (groups, modules and etc) with the application.\nPlease type in the name of the application to confirm:")
+        if app_name == application
+          ret, err = Manager::RubyApplication.delete(app)
+          if ret && !err
+            puts "Success!"
+          else
+            puts err
+          end
+        else
+          puts "Wrong application name!!"
+        end
+      else
+        puts "Application #{application} not found"
+      end
+    end
+
     def self.help
       puts "cloudwalk app [arguments]"
-      puts " list       : Show applications to the current account"
-      puts " new <name> : Create new application based like cloudwalk new"
+      puts " list          : Show applications to the current account"
+      puts " new <name>    : Create new application based like cloudwalk new"
+      puts " delete <name> : Delete ruby application"
+    end
+
+    def self.find(application)
+      if application.include?(".posxml") || application.include?(".xml")
+        [:posxml, Manager::Application.find(application)]
+      else
+        [:ruby, Manager::RubyApplication.find(application)]
+      end
     end
 
     def self.cwfile
