@@ -19,6 +19,13 @@ module Manager
       apps || []
     end
 
+    def self.find(name)
+      application = self.all.find do |app|
+        app["ruby_app"]["name"] == name
+      end
+      application["ruby_app"] if application
+    end
+
     def self.token
       Cloudwalk::Config.token
     end
