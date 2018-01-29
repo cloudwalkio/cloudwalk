@@ -25,9 +25,10 @@ module Util
       self.new(url.schema, url.host, url.port).put(url.path, request)
     end
 
-    def self.delete(uri, request)
+    def self.delete(url, request)
       url = HTTP::Parser.new().parse_url(url)
-      self.new(url.schema, url.host, url.port).delete(url.path, request)
+      path = (url.query) ? "#{url.path}?#{url.query}" : url.path
+      self.new(url.schema, url.host, url.port).delete(path, request)
     end
 
     def socket_class_exist?
