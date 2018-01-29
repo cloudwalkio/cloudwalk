@@ -1,5 +1,13 @@
 # Cloudwalk CLI
 
+### 1.5.0 - 2018-01-29
+
+- Bug fix CloudwalkHttp::delete url and url treatment.
+- Implement Manager::Application.find.
+- Implement Manager::RubyApplication.find.
+- Implement Manager::RubyApplication.delete.
+- Implement delete argument for app switch.
+
 ### 1.4.3 - 2018-01-18
 
 - Return timeout key at Kernel.getc.
