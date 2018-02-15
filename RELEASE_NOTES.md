@@ -1,5 +1,14 @@
 # Cloudwalk CLI
 
+### 1.6.0 - 2018-02-15
+
+- Implement helper xml2rb to add _xml.rb suffix.
+- Update main (1.62.0).
+- Implement posxml rake task cloudwalk:translate to translate .xml to .rb file.
+- Implement ruby rake task:
+    - single_build - compile each single .rb to .mrb.
+    - single_package - Create a package of all .mrb files.
+
 ### 1.5.0 - 2018-01-29
 
 - Bug fix CloudwalkHttp::delete url and url treatment.
