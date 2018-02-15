@@ -82,9 +82,29 @@ module Cloudwalk
             Cloudwalk::CwFileJson.setup(true)
             Cloudwalk::CwFileJson.persist_lock!
           end
+
+          desc "Translate from .xml to .rb, OUT_PATH expected"
+          task :translate do
+            raise "OUT_PATH not send" unless out = ENV["OUT_PATH"]
+
+            if path = ARGV[1..-1].first
+              xmls = [self.libs.find { |file| file == path }]
+              xmls.zip([File.join(out, File.basename(xml2rb(xml)))])
+            else
+              xmls = self.libs.inject([]) do |array, lib|
+                array << [lib, File.join(out, File.basename(xml2rb(xml)))]
+              end
+            end
+
+            xmls.each do |xml, out|
+              sh "cloudwalk compile -txml -o #{out} #{xml}"
+            end
+          end
         end
+
         task :default => "cloudwalk:build"
       end
     end
   end
 end
+
