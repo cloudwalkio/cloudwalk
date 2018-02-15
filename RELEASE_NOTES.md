@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 1.6.1 - 2018-02-15
+
+- Fix typo on translation rake task.
+
 ### 1.6.0 - 2018-02-15
 
 - Implement helper xml2rb to add _xml.rb suffix.
