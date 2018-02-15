@@ -47,6 +47,25 @@ module Cloudwalk
             Cloudwalk::CwFileJson.setup(true)
             Cloudwalk::CwFileJson.persist_lock!
           end
+
+          desc "Compile each .rb to .mrb"
+          task :single_build do
+            FileUtils.mkdir_p "./out/shared"
+
+            files = FileList["./lib/*"].zip(FileList["./lib/*"].pathmap("./out/shared/%n.mrb"))
+            files.each do |file,out|
+              next if file == "./lib/main.rb"
+              if File.file?(file)
+                sh "cloudwalk compile -g -o #{out} #{file}"
+              end
+            end
+          end
+
+          desc "Create zipfile from all .mrb"
+          task :single_package do
+            require "archive/zip"
+            Archive::Zip.archive "./out/mrb.zip", FileList["./out/shared/*.mrb"].to_a
+          end
         end
 
         task :default => "cloudwalk:build"
