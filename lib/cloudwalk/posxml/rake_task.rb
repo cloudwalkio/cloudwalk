@@ -92,7 +92,7 @@ module Cloudwalk
               xmls.zip([File.join(out, File.basename(xml2rb(xml)))])
             else
               xmls = self.libs.inject([]) do |array, lib|
-                array << [lib, File.join(out, File.basename(xml2rb(xml)))]
+                array << [lib, File.join(out, File.basename(xml2rb(lib)))]
               end
             end
 
