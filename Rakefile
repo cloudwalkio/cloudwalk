@@ -1,6 +1,6 @@
 require 'fileutils'
 
-MRUBY_VERSION="1.2.0"
+MRUBY_VERSION="1.3.0"
 
 file :mruby do
   sh "git clone --branch 1.3.0 https://github.com/mruby/mruby.git "
