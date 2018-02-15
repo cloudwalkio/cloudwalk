@@ -44,7 +44,6 @@ module Cloudwalk
         get(id)["name"]
       end
 
-
       def self.update(app_id, bytecode, app_parameters = nil)
         url      = "#{self.host}/v1/apps/ruby/#{app_id}?access_token=#{self.token}"
         uri      = URI(url)
