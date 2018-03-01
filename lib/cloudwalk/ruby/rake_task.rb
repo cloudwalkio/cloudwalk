@@ -17,7 +17,14 @@ module Cloudwalk
       include Cloudwalk::ManagerHelper
       include ::Rake::DSL if defined?(::Rake::DSL)
 
+      attr_accessor :debug, :debug_flag
+
       def initialize
+        yield self if block_given?
+
+        @debug    ||= false
+        @debug_flag = @debug ? '-g' : ''
+
         define
       end
 
@@ -56,7 +63,7 @@ module Cloudwalk
             files.each do |file,out|
               next if file == "./lib/main.rb"
               if File.file?(file)
-                sh "cloudwalk compile -g -o #{out} #{file}"
+                sh "cloudwalk compile #{self.debug_flag} -o #{out} #{file}"
               end
             end
           end
