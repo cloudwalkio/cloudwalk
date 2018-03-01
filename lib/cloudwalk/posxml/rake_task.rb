@@ -89,7 +89,7 @@ module Cloudwalk
 
             if path = ARGV[1..-1].first
               xmls = [self.libs.find { |file| file == path }]
-              xmls.zip([File.join(out, File.basename(xml2rb(xml)))])
+              xmls.zip([File.join(out, File.basename(xml2rb(path)))])
             else
               xmls = self.libs.inject([]) do |array, lib|
                 array << [lib, File.join(out, File.basename(xml2rb(lib)))]
