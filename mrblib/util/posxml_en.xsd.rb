@@ -2050,7 +2050,7 @@ In case of sucess in this function, the content of the 'child' node will be copi
   </xs:complexType>
   <xs:complexType name="wait">
     <xs:sequence />
-    <xs:attribute type="xs:string" use="required" name="miliseconds">
+    <xs:attribute name="miliseconds" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>integer (Time that the instruction will wait)</xs:documentation>
       </xs:annotation>
