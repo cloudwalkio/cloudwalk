@@ -1,5 +1,13 @@
 # Cloudwalk CLI
 
+### 1.7.0 - 2018-03-01
+
+- Fix path to single translation.
+- Implement debug flag to ruby single build.
+- Remove package before create single package.
+- Update PosxmlEn xsd wait instruction params order.
+- Update main (1.64.0).
+
 ### 1.6.1 - 2018-02-15
 
 - Fix typo on translation rake task.
