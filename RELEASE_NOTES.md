@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 1.8.0 - 2018-03-01
+
+- Update main (1.65.0).
+
 ### 1.7.0 - 2018-03-01
 
 - Fix path to single translation.
