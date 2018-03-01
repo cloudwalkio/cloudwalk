@@ -71,6 +71,7 @@ module Cloudwalk
           desc "Create zipfile from all .mrb"
           task :single_package do
             require "archive/zip"
+            FileUtils.rm_f "./out/mrb.zip"
             Archive::Zip.archive "./out/mrb.zip", FileList["./out/shared/*.mrb"].to_a
           end
         end
