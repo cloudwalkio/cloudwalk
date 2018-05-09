@@ -1,5 +1,10 @@
 # Cloudwalk CLI
 
+### 1.9.1 - 2018-05-02
+
+- Recover files of a security fix.
+- Update main (1.73.0).
+
 ### 1.9.0 - 2018-03-02
 
 - Update main (1.66.0).
