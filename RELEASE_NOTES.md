@@ -1,5 +1,11 @@
 # Cloudwalk CLI
 
+### 1.10.0 - 2018-07-31
+
+- Update main (1.79.0)
+    - Update posxml_parser (2.5.0)
+        -  Support network_start instruction.
+
 ### 1.9.1 - 2018-05-02
 
 - Recover files of a security fix.
