@@ -25,7 +25,7 @@ def gem_config(conf)
   end
 
   conf.gem :core => "mruby-sprintf"
-  conf.gem :mgem => 'mruby-mtest'
+  conf.gem :mgem => 'mruby-mtest', :checksum_hash => "40db4f644a9ab2820683d0395ae1cf5e0c232faf"
   conf.gem :core => "mruby-print"
   conf.gem :core => "mruby-math"
   conf.gem :core => "mruby-time"
@@ -52,7 +52,7 @@ def gem_config(conf)
   conf.gem :github => "scalone/mruby-hs-regexp"
   conf.gem :mgem => "mruby-io"
   conf.gem :mgem => "mruby-dir"
-  conf.gem :mgem => "mruby-tempfile"
+  conf.gem :mgem => "mruby-tempfile", :checksum_hash => "e2f56882fab5249f5203dc8259ac2504a3221ee4"
   conf.gem :github => "iij/mruby-require"
   conf.gem :github => "cloudwalkio/mruby-socket", :branch => "no-force"
   conf.gem :github => "iij/mruby-pack", :checksum_hash => "88a7fedea413568a1ff0410e109ff55a03b63a5f"
@@ -82,7 +82,6 @@ MRuby::Build.new do |conf|
   conf.enable_debug
   conf.enable_test
 
-  conf.gem :mgem => 'mruby-mtest'
   conf.gem :core => "mruby-print"
 
   #gem_config(conf)
