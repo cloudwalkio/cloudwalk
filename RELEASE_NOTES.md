@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 1.11.1 - 2018-09-13
+
+- Add checksum hash to mruby-mtest and mruby-tempfile build.
+
 ### 1.11.0 - 2018-09-13
 
 - Update main (1.84.0)
