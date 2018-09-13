@@ -1,5 +1,61 @@
 # Cloudwalk CLI
 
+### 1.11.0 - 2018-09-13
+
+- Update main (1.84.0)
+    - Update posxml_parser (2.8.3)
+        - Fix input_integer timeout.
+    - Update cloudwalk_handshake (0.13.2)
+        - Return nil if handshake ssl error at CloudwalkHandshake.
+- Update main (1.83.0)
+    - Implement communication test at admin menu.
+    - Refactoring media configuration to support device reboot and communication test after configuration.
+    - Adopt da_funk confirm helper at wizard.
+    - Refactoring language form at wizard to support exit.
+    - Update da_funk (1.13.1).
+        - Fix ScreenFlow navigation when comparing confirmation.
+    - Update posxml_parser (2.8.0).
+        - Support float variable compilation.
+        - Add file line number to compilation error.
+    - Update cloudwalk_handshake (0.13.1).
+        - Add rescue ssl exception on socket operation.
+        - Add rescue tcp exception on socket operation.
+        - Check if socket is created at handshake and ssl handshake.
+- Update main (1.82.0)
+    - Implement Notification to reboot system.
+    - Reboot system after remote update.
+    - Refactoring wizard and application menu check adding application update at the end of wizard and moving crc check from first ENTER press to boot, speeding up key press on idle.
+    - Support update interval feature, if not configured the default is 7 days interval.
+    - Add admin_communication main entry option.
+    - Update posxml_parser (2.7.0).
+        - Support to execute ruby application in posxml_execute.
+    - Update cloudwalk_handshake (0.13.0)
+        - Implement UTC mode from params.dat to generate TOTP.
+    - Update da_funk (1.13.0)
+        - Add DaFunk::ParamsDat::parameters_load copy of ready?.
+        - ScrenFlow.confirm returns boolean.
+        - Support schedule events in file if using hours parameters.
+- Update main (1.81.0)
+    - Update posxml_parser (2.6.1)
+        - Support image at card_get_variable.
+- Update main (1.80.0)
+    - Add debug flag as false to compilation config.
+    - Implement new update strategy that supports multiple files.
+    - Update cloudwalk (1.10.0)
+    - Update da_funk (1.12.0)
+        - Do not raise exception when bitmap to be display doesn’t exists.
+        - Implement Device::Priter.print_barcode.
+    - Update funky-emv (0.17.2)
+        - Add sleep before call pin methods to avoid problems on display and memory location of PAX EMV Kernel.
+    - Update posxml_parser (2.6.0)
+        - Enable FileDbCache and fix delete process.
+        - Fresh any file db cache on every execute.
+        - Bugfix card_read to works when EMV not enabled.
+        - Do not trow exception the try to read a variable that doesn’t exists on mruby side.
+        - Interface_display_bitmap returns the resulted value.
+        - Bugfix input_money to works even if message is empty.
+        - Implement print_barcode.
+
 ### 1.10.0 - 2018-07-31
 
 - Update main (1.79.0)
