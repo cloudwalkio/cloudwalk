@@ -24,6 +24,8 @@ def gem_config(conf)
     conf.cc.defines << "ENABLE_LINENOISE"
   end
 
+  conf.gem :core => "mruby-error"
+  conf.gem :mgem => 'mruby-errno'
   conf.gem :core => "mruby-sprintf"
   conf.gem :mgem => 'mruby-mtest', :checksum_hash => "40db4f644a9ab2820683d0395ae1cf5e0c232faf"
   conf.gem :core => "mruby-print"
