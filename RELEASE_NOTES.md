@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 1.11.2 - 2018-09-18
+
+- Fix exception error rescue adding mruby errors.
+
 ### 1.11.1 - 2018-09-13
 
 - Add checksum hash to mruby-mtest and mruby-tempfile build.
