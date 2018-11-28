@@ -1,5 +1,71 @@
 # Cloudwalk CLI
 
+### 1.11.3 - 2018-11-28
+
+- Fix exception error rescue adding mruby errors;
+- Update main (2.0.0)
+    - Add ThreadScheduler interface to handle threads on communication and status bar operation;
+    - Support Thread scheduling on boot;
+    - Stop/start communication threads between network reconfiguration;
+    - Add link/unlink image to payment channel status;
+    - Fix communication thread printing;
+    - Update da_funk (2.0.0)
+        - Support check specific listener type;
+        - Adopt ThreadScheduler and stop all thread at boot end;
+        - Remove status bar check from engine loop;
+        - Add Support to change link/unlink payment channel image;
+        - Fix IO_INPUT_NUMBERS string change at IO.get_format.
+- Update main (2.1.0)
+    - Remove backlight control in thread;
+    - Remove notification handler on communication thread;
+    - Update status bar updating period from 400 to 1000ms;
+    - Adopt custom notification handle at main thread;
+    - Fix ThreadScheduler command cache always returning the vale to key value structure;
+    - Fix fallback communication in thread communication;
+    - At ThreadChannel handler loop only communicate if string is given;
+    - Change strategy to thread spawn at thread scheduler to avoid missing loaded libs as da_funk execute create eval string in other scope.
+- Update main (2.1.1)
+    - Increased timeout on getc;
+- Update main (2.1.2)
+    - Check if threads were created to stop them at ThreadScheduler;
+    - ThreadScheduler only start status bar if applicable;
+    - Support payment channel connect between threads;
+    - Remove countdown menu from payment channel handler because this handler is being handle in thread;
+    - Refactoring main execution parser;
+- Update main (2.1.3)
+    - Update da_funk (2.0.1)
+        - Add support to create and close PaymentChannel from CommunicationChannel;
+    - Update funky-emv (0.20.0)
+        - Added FunkyEmv Ui to display remove card message;
+- Update main (2.1.4)
+    - Update posxml_parser (2.8.4)
+        - Return PaymentChannel status when read cw_payment_channel.dat.
+- Update main (2.2.0)
+    - Review key_main events to link2500 terminals.
+    - Update posxml_parser (2.8.5);
+        - Fresh cache variable in ruby execution;
+    - Update da_funk (2.0.2);
+        - Fix system update removing file existence validation because it could be a not valid path;
+    - Update da_funk (2.0.3);
+        - Fix I18n print and translate to check line and column;
+    - Update da_funk (2.0.4);
+        - Do not print last if not in communication thread;
+        - Replace sleep by getc at ParamsDat download functions;
+    - Update funky-emv (0.20.1);
+        - Refactoring EmvSharedLibrary to check tag 4F after 9F06 at go on chip process to return AID;
+- Update main (2.3.0)
+    - Support ThreadScheduler.pause at communication thread to not execute any event handler during other threads connection attempts;
+    - Move ThreadScheduler to mruby-context;
+    - Check if communication thread is sleeping before checking any communication object;
+    - Remove DaFunk::PaymentChannel.client definition at call and move to mruby-context;
+    - Support to ThreadPubSub subscription performing system reload on communication update event;
+    - Update da_funk (2.1.0);
+        - Support to thread pausing during Network.attach;
+        - Ensure clear on PaymentChannel::close!;
+    - Update posxml_parser (2.8.6);
+        - Fix parseticket xsd;
+        - Improve VariableTypeError message to highlight type;
+
 ### 1.11.2 - 2018-09-18
 
 - Fix exception error rescue adding mruby errors.
