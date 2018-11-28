@@ -1,5 +1,9 @@
 # Cloudwalk CLI
 
+### 1.11.4 - 2018-11-28
+
+- Fix message attribute at custom posxml xsd.
+
 ### 1.11.3 - 2018-11-28
 
 - Fix exception error rescue adding mruby errors;
