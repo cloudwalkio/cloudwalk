@@ -3990,7 +3990,7 @@ x3: 99x99 pixels (can be used on the printer)
         <xs:documentation>string (Ticket not parsed).</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="menssage" type="xs:string" use="required">
+    <xs:attribute name="message" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>string (Message not parsed).</xs:documentation>
       </xs:annotation>
