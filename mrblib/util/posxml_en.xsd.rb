@@ -3104,10 +3104,7 @@ In case of sucess in this function, the content of the 'child' node will be copi
     <xs:sequence />
     <xs:attribute name="variablereturn" type="xs:string" use="required">
       <xs:annotation>
-        <xs:documentation>Variable which will store the result of the operation, where:
-1: Success.
-0: Failed.(integer).
-        </xs:documentation>
+        <xs:documentation>Variable which will store the result of the operation, where: 1: Success.  0: Failed.(integer).  </xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
