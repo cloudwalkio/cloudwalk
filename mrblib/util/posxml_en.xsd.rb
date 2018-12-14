@@ -1793,6 +1793,18 @@ In case of sucess in this function, the content of the 'child' node will be copi
           <xs:documentation>Add a tag in a ISO 20022 Payment message</xs:documentation>
         </xs:annotation>
       </xs:element>
+      <xs:element name="system.getlog" type="system.getlog">
+        <xs:annotation>
+          <!-- ordem dos parametros -->
+          <xs:appinfo>logfilename,zipfilename,variablereturn</xs:appinfo>
+          <!-- bytecode;tem parametros;declaracao ou chamada de funcao;declaracao de variavel; (startelement) -->
+          <xs:appinfo>\xa9;true;false;false</xs:appinfo>
+          <!-- bytecode;tem parametros;declaracao ou chamada de funcao;declaracao de variavel; (endelement) -->
+          <xs:appinfo>
+          </xs:appinfo>
+          <xs:documentation>Get a log file and prepare a buffer to upload to cloudwalk</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:choice>
   </xs:group>
   <xs:complexType name="display">
@@ -4295,6 +4307,24 @@ x3: 99x99 pixels (can be used on the printer)
 	  <xs:attribute name="buffer" type="xs:string" use="required">
       <xs:annotation>
         <xs:documentation>string (ISO 20022 message)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="system.getlog">
+    <xs:sequence />
+    <xs:attribute name="logfilename" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>String (name of the log file)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="zipfilename" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>String (name of the zip file)</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="variablereturn" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>Integer (operation result; 1: buffer is ready for upload; <=0: Error)</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:complexType>
