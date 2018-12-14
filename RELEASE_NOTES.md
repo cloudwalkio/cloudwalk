@@ -1,5 +1,20 @@
 # Cloudwalk CLI
 
+### 1.12.0 - 2018-12-14
+
+- Update main (2.4.0)
+    - Refactoring PAX S920 key map inverting ALPHA by FUNC;
+    - Update cloudwalk (1.11.4);
+    - Update da_funk (2.2.0)
+        - Support pausing communication on Network::scan;
+- Update main (2.5.0)
+    - Update posxml_parser (2.9.0)
+        - Fix network.cloudwalkhandshake variable type declaration;
+        - Fix integer type check at posxml compilation, support camelcase declarations;
+        - Update test xsd from PosxmlParser version;
+        - Fix instruction not found check to instruction with parameters;
+        - Support to system.getlog instruction compilation.
+
 ### 1.11.4 - 2018-11-28
 
 - Fix message attribute at custom posxml xsd.
