@@ -1,5 +1,11 @@
 # Cloudwalk CLI
 
+### 1.13.0 - 2018-12-20
+
+- Update main (2.6.0)
+    - Update posxml_parser (2.10.0)
+        - During translation lowercase first letter function.
+
 ### 1.12.0 - 2018-12-14
 
 - Update main (2.4.0)
