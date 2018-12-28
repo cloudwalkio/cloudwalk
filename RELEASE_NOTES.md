@@ -1,5 +1,10 @@
 # Cloudwalk CLI
 
+### 1.14.0 - 2018-12-28
+
+- Update mruby-miniz
+    - Support parameters on deflate operation.
+
 ### 1.13.0 - 2018-12-20
 
 - Update main (2.6.0)
