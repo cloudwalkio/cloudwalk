@@ -60,7 +60,7 @@ def gem_config(conf)
   conf.gem :github => "iij/mruby-pack", :checksum_hash => "88a7fedea413568a1ff0410e109ff55a03b63a5f"
   conf.gem :mgem => "mruby-polarssl"
   #conf.gem :github => "scalone/mruby-qrcode", :branch => "inverted"
-  conf.gem :mgem => "mruby-miniz", :checksum_hash => "28decd8c6dacc9c546f4ea8e78be01ddcfcb9663"
+  conf.gem :mgem => "mruby-miniz"
   conf.gem :mgem => "mruby-sleep"
   conf.gem :mgem => "mruby-json"
   conf.gem :github => "scalone/mruby-context"
