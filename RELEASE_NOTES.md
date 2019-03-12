@@ -1,5 +1,10 @@
 # Cloudwalk CLI
 
+### 1.14.1 - 2019-03-12
+
+- Adopt mruby-miniz from trunk;
+- Adopt mruby-polarssl 2.1.2.
+
 ### 1.14.0 - 2018-12-28
 
 - Update mruby-miniz
