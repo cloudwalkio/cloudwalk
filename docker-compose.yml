@@ -2,25 +2,25 @@ compile: &defaults
   build: .
   volumes:
     - .:/home/mruby/code:rw
-  command: rake compile
+  command: /bin/bash -l -c "rake compile"
 test:
   <<: *defaults
-  command: rake test
+  command: /bin/bash -l -c "rake test"
 bintest:
   <<: *defaults
-  command: rake test:bintest
+  command: /bin/bash -l -c "rake test:bintest"
 mtest:
   <<: *defaults
-  command: rake test:mtest
+  command: /bin/bash -l -c "rake test:mtest"
 bundle:
   <<: *defaults
-  command: bundle install
+  command: /bin/bash -l -c "bundle install"
 clean:
   <<: *defaults
-  command: rake clean
+  command: /bin/bash -l -c "rake clean"
 shell:
   <<: *defaults
-  command: bash
+  command: /bin/bash --login
 all:
   <<: *defaults
-  command: rake all
+  command: /bin/bash -l -c "rake all"
