@@ -1,10 +1,14 @@
 # Cloudwalk CLI
 
+### 1.14.3 - 2019-05-02
+
+- Move host to manager.cloudwalk.io and avoid certification problems.
+
 ### 1.14.2 - 2019-05-02
 
 - Update ruby compilation version to 2.4;
-- Update main (3.11.0)
-- Set host name at SSL connections and fix manager connection after certificate update;
+- Update main (3.11.0);
+- Set host name at SSL connections and fix manager connection after certificate update.
 
 ### 1.14.1 - 2019-03-12
 
