@@ -4,8 +4,8 @@ module Cloudwalk
       attr_accessor :parameters
     end
 
-    API         = "https://api.cloudwalk.io"
-    API_STAGING = "https://api-staging.cloudwalk.io"
+    API         = "https://manager.cloudwalk.io"
+    API_STAGING = "https://manager-staging.cloudwalk.io"
 
     PARAMETERS_DEFAULT = {
       "companies"   => nil,
