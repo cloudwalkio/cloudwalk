@@ -158,7 +158,9 @@ module Util
           entropy = PolarSSL::Entropy.new
           ctr_drbg = PolarSSL::CtrDrbg.new entropy
           ssl = PolarSSL::SSL.new
+          ssl.set_authmode PolarSSL::SSL::SSL_VERIFY_OPTIONAL
           ssl.set_endpoint PolarSSL::SSL::SSL_IS_CLIENT
+          ssl.set_hostname(address) if address
           ssl.set_rng ctr_drbg
           ssl.set_socket socket
           ssl.handshake
