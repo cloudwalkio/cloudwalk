@@ -9,7 +9,9 @@ Cloudwalk CLI is the CLI to create, pack, run and test posxml and DaFunk project
     - [Docker Compose](https://docs.docker.com/compose/install/)
 
 - Docker Setup
+  - `git submodule update --init`
   - `docker-compose build`
+  - `docker-compose run da_funk`
   - `docker-compose run all`
 
 Each app will be generated with a Dockerfile that inherits a base image. You can pull the image from docker hub here: https://registry.hub.docker.com/u/scalone/cloudwalk-cli/
