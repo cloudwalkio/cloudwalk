@@ -37,10 +37,11 @@ module Manager
         "pos_display_label" => pos_display_label,
         "description"       => description,
         "displayable"       => displayable,
-        "authorizer_url"    => authorizer_url
+        "authorizer_url"    => authorizer_url,
+        "language"          => "posxml"
       }
 
-      url  = "#{Cloudwalk::Config.host}/v1/apps/posxml?access_token=#{self.token}"
+      url  = "#{Cloudwalk::Config.host}/v1/apps?access_token=#{self.token}"
       body = JSON.stringify(params)
       req  = {"Body" => body, "Content-Type" => "application/x-www-form-urlencoded"}
 

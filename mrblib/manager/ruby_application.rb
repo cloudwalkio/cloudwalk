@@ -50,7 +50,8 @@ module Manager
         "pos_display_label" => pos_display_label,
         "description"       => description,
         "displayable"       => displayable,
-        "authorizer_url"    => authorizer_url
+        "authorizer_url"    => authorizer_url,
+        "language"          => "ruby"
       }
 
       url  = "#{Cloudwalk::Config.host}/v1/apps/ruby?access_token=#{self.token}"
