@@ -12,6 +12,9 @@ bintest:
 mtest:
   <<: *defaults
   command: /bin/bash -l -c "rake test:mtest"
+da_funk:
+  <<: *defaults
+  command: /bin/bash -l -c "rake da_funk"
 bundle:
   <<: *defaults
   command: /bin/bash -l -c "bundle install"
