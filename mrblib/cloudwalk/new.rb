@@ -16,16 +16,13 @@ module Cloudwalk
         end
 
         if check_parameters(args)
-          if posxml
-            if cwfile = Manager::Application.create(self.name, self.pos_display_label,
-                                                    self.description, self.displayable,
-                                                    self.authorizer_url)
+          cwfile = Manager::Application.create(self.name, self.pos_display_label,
+                                                  self.description, self.displayable,
+                                                  self.authorizer_url, self.language)
+          if cwfile
+            if posxml
               Util::PosxmlNew.run(name, cwfile)
-            end
-          else
-            if cwfile = Manager::RubyApplication.create(self.name, self.pos_display_label,
-                                                    self.description, self.displayable,
-                                                    self.authorizer_url)
+            else
               Util::MrubyNew.run(name, cwfile)
             end
           end
