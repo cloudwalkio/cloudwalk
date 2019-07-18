@@ -1,7 +1,7 @@
 module Cloudwalk
   class New
     class << self
-      attr_accessor :name
+      attr_accessor :name, :language
     end
 
     def self.run(*args)
