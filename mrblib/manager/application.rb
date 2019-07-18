@@ -31,14 +31,14 @@ module Manager
       Cloudwalk::Config.token
     end
 
-    def self.create(name, pos_display_label, description, displayable, authorizer_url)
+    def self.create(name, pos_display_label, description, displayable, authorizer_url, language)
       params = {
         "name"              => name,
         "pos_display_label" => pos_display_label,
         "description"       => description,
         "displayable"       => displayable,
         "authorizer_url"    => authorizer_url,
-        "language"          => "posxml"
+        "language"          => language
       }
 
       url  = "#{Cloudwalk::Config.host}/v1/apps?access_token=#{self.token}"
