@@ -9,6 +9,12 @@ module Cloudwalk
         posxml = args.delete("-xml")
         self.name = args.first
 
+        if posxml
+          self.language = "posxml"
+        else
+          self.language = "ruby"
+        end
+
         if check_parameters(args)
           if posxml
             if cwfile = Manager::Application.create(self.name, self.pos_display_label,
