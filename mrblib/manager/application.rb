@@ -27,6 +27,20 @@ module Manager
       application["posxml_app"] if application
     end
 
+    def self.delete(app)
+      if app || app["id"]
+        url = "#{Cloudwalk::Config.host}/v1/apps/#{app["id"]}?access_token=#{self.token}"
+        response = Util::CloudwalkHttp.delete(url, {})
+        if response.code == 200 || response.code == 204
+          [true]
+        else
+          [false, response.body]
+        end
+      else
+        [false, "Id not found"]
+      end
+    end
+
     def self.token
       Cloudwalk::Config.token
     end
