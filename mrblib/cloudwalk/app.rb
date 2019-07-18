@@ -36,20 +36,21 @@ module Cloudwalk
     end
 
     def self.list
-      apps = Manager::RubyApplication.all
-      unless apps.empty?
-        puts "Ruby Applications"
-        apps.each do |app|
-          puts "#{app["ruby_app"]["name"]} - #{app["ruby_app"]["description"]}"
-        end
-      end
-
+      posxml_apps = ""
+      ruby_apps = ""
       apps = Manager::Application.all
       unless apps.empty?
-        puts "Posxml Applications"
         apps.each do |app|
-          puts "#{app["posxml_app"]["name"]} - #{app["posxml_app"]["description"]}"
+          if app["app"]["language"] == "posxml"
+            posxml_apps.concat "#{app["app"]["name"]} - #{app["app"]["description"]}\n"
+          else
+            ruby_apps.concat "#{app["app"]["name"]} - #{app["app"]["description"]}\n"
+          end
         end
+        puts "POSXML Applications"
+        puts posxml_apps
+        puts "Ruby Applications"
+        puts ruby_apps
       end
     end
 
