@@ -79,14 +79,6 @@ module Cloudwalk
       puts " delete <name> : Delete ruby application"
     end
 
-    def self.find(application)
-      if application.include?(".posxml") || application.include?(".xml")
-        [:posxml, Manager::Application.find(application)]
-      else
-        [:ruby, Manager::RubyApplication.find(application)]
-      end
-    end
-
     def self.cwfile
       unless @cwfile
         if File.exists?(CW_FILE_PATH)
