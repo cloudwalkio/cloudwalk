@@ -22,9 +22,9 @@ module Manager
     def self.find(name)
       name = name.gsub(".posxml", "").gsub(".xml", "")
       application = self.all.find do |app|
-        app["posxml_app"]["name"].gsub(".posxml", "") == name
+        app["app"]["name"].gsub(".posxml", "") == name
       end
-      application["posxml_app"] if application
+      application["app"] if application
     end
 
     def self.delete(app)
