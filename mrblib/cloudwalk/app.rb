@@ -54,11 +54,10 @@ module Cloudwalk
     end
 
     def self.delete(application)
-      type, app = self.find(application)
-      if app && type == :ruby
+      if app = Manager::Application.find(application)
         app_name = Util.ask("READ THIS:\nThis action will permanently delete the application #{application}, and can only be concluded if you delete all associations (groups, modules and etc) with the application.\nPlease type in the name of the application to confirm:")
         if app_name == application
-          ret, err = Manager::RubyApplication.delete(app)
+          ret, err = Manager::Application.delete(app)
           if ret && !err
             puts "Success!"
           else
