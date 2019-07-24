@@ -4,7 +4,7 @@ module Cloudwalk
       include Cloudwalk::ManagerHelper
 
       def self.get_or_create(app, version)
-        response = JSON.parse(Net::HTTP.get(URI("#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
+        response = JSON.parse(Net::HTTP.get(URI("#{self.host}/v1/apps/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
         raise ManagerException.new(response["message"]) if response["message"]
 
         #TODO
@@ -12,14 +12,14 @@ module Cloudwalk
       end
 
       def self.all(app_id)
-        response = JSON.parse(Net::HTTP.get(URI("#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
+        response = JSON.parse(Net::HTTP.get(URI("#{self.host}/v1/apps/#{app_id}/versions?access_token=#{self.token}&per_page=100")))
         raise ManagerException.new(response["message"]) if response["message"]
 
         total_pages = response["pagination"]["total_pages"].to_i
         versions = response["appversions"]
 
         (total_pages - 1).times do |page|
-          url = "#{self.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100&page=#{page+2}"
+          url = "#{self.host}/v1/apps/#{app_id}/versions?access_token=#{self.token}&per_page=100&page=#{page+2}"
           response = JSON.parse(Net::HTTP.get(URI(url)))
           raise ManagerException.new(response["message"]) if response["message"]
 
@@ -29,7 +29,7 @@ module Cloudwalk
       end
 
       def self.get(app_id, id)
-        url = "#{self.host}/v1/apps/posxml/#{app_id}/versions/#{id}?access_token=#{token}"
+        url = "#{self.host}/v1/apps/#{app_id}/versions/#{id}?access_token=#{token}"
         response = JSON.parse(Net::HTTP.get(URI(url)))
         if response["message"]
           raise ManagerException.new(response["message"]) 
