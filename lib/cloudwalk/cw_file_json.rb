@@ -148,7 +148,7 @@ module Cloudwalk
           "name"       => app["name"],
           "id"         => app["id"],
           "modules"    => [],
-          "version"    => "1.0.0"
+          "version"    => version
         }
       else
         {
