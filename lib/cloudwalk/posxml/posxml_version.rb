@@ -23,7 +23,7 @@ module Cloudwalk
           response = JSON.parse(Net::HTTP.get(URI(url)))
           raise ManagerException.new(response["message"]) if response["message"]
 
-          versions.concat(response["posxmlapps"])
+          versions.concat(response["appversions"])
         end
         versions
       end
