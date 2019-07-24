@@ -51,7 +51,7 @@ module Cloudwalk
 
       # NEW B4
       def self.update(app_id, version_id, bytecode, app_parameters = nil)
-        url      = "#{self.host}/v1/apps/posxml/#{app_id}/versions/#{version_id}?access_token=#{self.token}"
+        url    = "#{self.host}/v1/apps/#{app_id}/versions?access_token=#{self.token}"
         uri      = URI(url)
         form     = {"bytecode" => Base64.strict_encode64(bytecode)}
         response = nil
