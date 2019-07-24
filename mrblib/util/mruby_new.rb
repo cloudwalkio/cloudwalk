@@ -112,14 +112,18 @@ IGNORE
     def self.cwfile_json(name, cwfile)
       <<CWFILE
 {
-  \"name\":\"#{name}\",
-  \"runtime\": \"ruby\",
-  \"modules\":{
-  },
-  \"version\":\"1.0.0\",
-  \"authorizer_url\":\"#{cwfile["authorizer_url"]}\",
-  \"description\":\"#{cwfile["description"]}\",
-  \"pos_display_label\":\"#{cwfile["pos_display_label"]}\"
+  \"apps\":[
+    {
+      \"name\":\"#{name}\",
+      \"runtime\": \"ruby\",
+      \"modules\":{
+      },
+      \"version\":\"1.0.0\",
+      \"authorizer_url\":\"#{cwfile["authorizer_url"]}\",
+      \"description\":\"#{cwfile["description"]}\",
+      \"pos_display_label\":\"#{cwfile["pos_display_label"]}\"
+    }
+  ]
 }
 CWFILE
     end
