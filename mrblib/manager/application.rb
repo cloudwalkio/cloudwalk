@@ -60,7 +60,7 @@ module Manager
       req  = {"Body" => body, "Content-Type" => "application/x-www-form-urlencoded"}
 
       response = Util::CloudwalkHttp.post(url, req)
-      if response.code == 200
+      if response.code == 201
         params
       else
         puts response.body
