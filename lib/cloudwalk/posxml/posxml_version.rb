@@ -65,7 +65,7 @@ module Cloudwalk
         end
 
         Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
-          request = Net::HTTP::Put.new(uri)
+          request = Net::HTTP::Post.new(uri)
           request.set_form_data(form)
           response = http.request(request)
         end
