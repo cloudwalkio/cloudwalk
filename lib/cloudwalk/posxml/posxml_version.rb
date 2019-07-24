@@ -46,7 +46,7 @@ module Cloudwalk
         versions     = Cloudwalk::Posxml::PosxmlVersion.all(application["id"])
         version      = versions.find { |json| json["app_version"]["number"] == version_name }
 
-        [app_posxml, (version && version["app_version"])]
+        [application, (version && version["app_version"])]
       end
 
       # NEW B4
