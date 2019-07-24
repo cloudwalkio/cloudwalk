@@ -41,10 +41,9 @@ module Cloudwalk
 
       # NEW
       def self.find(app_name, version_name)
-        applications = Cloudwalk::Posxml::PosxmlApplication.all
-        app_remote   = applications.find { |app_json| app_json["posxml_app"]["name"] == xml2posxml(app_name) }
-        app_posxml   = app_remote["posxml_app"]
-        versions     = Cloudwalk::Posxml::PosxmlVersion.all(app_posxml["id"])
+        applications = Cloudwalk::Application.all
+        application   = applications.find { |app_json| app_json["name"] == xml2posxml(app_name) }
+        versions     = Cloudwalk::Posxml::PosxmlVersion.all(application["id"])
         version      = versions.find { |json| json["app_version"]["number"] == version_name }
 
         [app_posxml, (version && version["app_version"])]
