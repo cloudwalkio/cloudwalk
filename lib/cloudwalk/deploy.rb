@@ -42,7 +42,7 @@ module Cloudwalk
     end
 
     def name
-      self.cwfile["name"]
+      self.cwfile["apps"].first["name"]
     end
 
     def ruby
