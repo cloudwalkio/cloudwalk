@@ -58,9 +58,9 @@ module Cloudwalk
 
         if app_parameters
           form["authorizer_url"]    = app_parameters["authorizer_url"]
-          form["description"]       = app_parameters["description"]
+          form["number"]            = app_parameters["version"]
+          form["displayable"]       = app_parameters["displayable"]
           form["pos_display_label"] = app_parameters["pos_display_label"]
-          form["displayable"]       = app_parameters["pos_display_label"] != "X"
         end
 
         Net::HTTP.start(uri.host, uri.port, :use_ssl => true) do |http|
