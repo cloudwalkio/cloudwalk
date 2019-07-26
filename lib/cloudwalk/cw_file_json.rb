@@ -126,15 +126,16 @@ module Cloudwalk
     end
 
     def self.build_module(mod)
-      if module_version = Cloudwalk::Posxml::PosxmlVersion.get(mod["app_id"], mod["version_id"])
+      app, ver = Cloudwalk::Posxml::PosxmlVersion.find(mod.first, mod.last)
+      if module_version = Cloudwalk::Posxml::PosxmlVersion.get(app["id"], ver["id"])
         {
-          "name"       => Cloudwalk::Posxml::PosxmlApplication.get_name(module_version["app_id"]),
+          "name"       => Cloudwalk::Application.get_name(app["id"]),
           "version"    => module_version["number"],
           "id"         => module_version["app_id"],
           "version_id" => module_version["id"]
         }
       else
-        raise Cloudwalk::CwFileJsonException.new("App (#{mod['app_id']}) Module Version (#{mod['version_id']}) not found")
+        raise Cloudwalk::CwFileJsonException.new("App (#{mod.first}) Module Version (#{mod.last}) not found")
       end
     end
 
