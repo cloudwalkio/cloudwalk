@@ -112,10 +112,11 @@ module Cloudwalk
         app, version = Cloudwalk::Posxml::PosxmlVersion.find(app_local["name"], app_local["version"])
         if app && version
           detail = Cloudwalk::Posxml::PosxmlVersion.get(app["id"], version["id"])
-          config << build_application(:posxml, app, version, detail["module_ids"])
+          config << build_application(app, version, detail["module_ids"])
         elsif app
           app = Cloudwalk::Application.find(xml2posxml(app_local["name"]))
-          config << build_application(:ruby, app, app_local["version"])
+
+          config << build_application(app, app_local["version"], app_local["modules"])
         else
           raise Cloudwalk::CwFileJsonException.new("App (#{app_local["name"]}) Version (#{app_local["version"]}) not found")
         end
