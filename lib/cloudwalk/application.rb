@@ -23,7 +23,7 @@ module Cloudwalk
           response = JSON.parse(Net::HTTP.get(URI(url)))
           raise ManagerException.new(response["message"]) if response["message"]
 
-          @apps.concat(response["apps"])
+          @apps.concat(response["apps"].collect {|r| r["app"] })
         end
         @apps
       end
