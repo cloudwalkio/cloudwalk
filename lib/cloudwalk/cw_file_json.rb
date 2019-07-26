@@ -109,9 +109,9 @@ module Cloudwalk
     def self.lock_build
       config = []
       self.cwfile["apps"].each do |app_local|
-        app, version = Cloudwalk::Posxml::PosxmlVersion.find(app_local["name"], app_local["version"])
+        app, version = Cloudwalk::ApplicationVersion.find(app_local["name"], app_local["version"])
         if app && version
-          detail = Cloudwalk::Posxml::PosxmlVersion.get(app["id"], version["id"])
+          detail = Cloudwalk::ApplicationVersion.get(app["id"], version["id"])
           config << build_application(app, version, detail["module_ids"])
         elsif app
           app = Cloudwalk::Application.find(xml2posxml(app_local["name"]))
@@ -126,8 +126,8 @@ module Cloudwalk
     end
 
     def self.build_module(mod)
-      app, ver = Cloudwalk::Posxml::PosxmlVersion.find(mod.first, mod.last)
-      if module_version = Cloudwalk::Posxml::PosxmlVersion.get(app["id"], ver["id"])
+      app, ver = Cloudwalk::ApplicationVersion.find(mod.first, mod.last)
+      if module_version = Cloudwalk::ApplicationVersion.get(app["id"], ver["id"])
         {
           "name"       => Cloudwalk::Application.get_name(app["id"]),
           "version"    => module_version["number"],
@@ -243,11 +243,11 @@ module Cloudwalk
 
           if remote_app
             remote_posxml_app   = remote_app["posxml_app"]
-            remote_versions     = Cloudwalk::Posxml::PosxmlVersion.all(remote_posxml_app["id"])
+            remote_versions     = Cloudwalk::ApplicationVersion.all(remote_posxml_app["id"])
             remote_version_json = remote_versions.find { |json| json["app_version"]["number"] == version }
 
             if remote_version_json && (remote_version = remote_version_json["app_version"])
-              remote_version_detail = Cloudwalk::Posxml::PosxmlVersion.get(remote_posxml_app["id"], remote_version["id"])
+              remote_version_detail = Cloudwalk::ApplicationVersion.get(remote_posxml_app["id"], remote_version["id"])
               # TODO: Check if application exists locally
               build_application(local_app, config, remote_posxml_app, remote_version, remote_version_detail["app_version"]["module_ids"])
             else
