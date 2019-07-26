@@ -138,23 +138,13 @@ module Cloudwalk
       end
     end
 
-    def self.build_application(type, app, version = nil, modules_remote = nil)
-      if type == :ruby
-        {
-          "name"       => app["name"],
-          "id"         => app["id"],
-          "modules"    => [],
-          "version"    => version
-        }
-      else
-        {
-          "name"       => app["name"],
-          "id"         => app["id"],
-          "modules"    => modules_remote.collect {|mod| build_module(mod)},
-          "version"    => version["number"],
-          "version_id" => version["id"]
-        }
-      end
+    def self.build_application(app, version = nil, modules_remote = nil)
+      {
+        "name"       => app["name"],
+        "id"         => app["id"],
+        "modules"    => modules_remote.collect {|mod| build_module(mod)},
+        "version"    => version["number"] || version,
+      }
     end
 
     def self.exists?
