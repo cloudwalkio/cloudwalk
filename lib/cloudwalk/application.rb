@@ -36,7 +36,7 @@ module Cloudwalk
       response = JSON.parse(Net::HTTP.get(URI(url)))
       raise ManagerException.new(response["message"]) if response["message"]
 
-      response["apps"]
+      response["app"]
     end
 
     def self.get_name(id)
