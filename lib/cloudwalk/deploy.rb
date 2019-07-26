@@ -57,8 +57,8 @@ module Cloudwalk
           raise Cloudwalk::DeployException.new("application #{self.name} not found at Manager, please create it")
         end
 
-        ret, response = Cloudwalk::Ruby::RubyApplication.update(
-          app_lock["id"], File.read(zip), self.cwfile
+        ret, response = Cloudwalk::Posxml::PosxmlVersion.update(
+          app_lock["id"], app_lock["version_id"], File.read(zip), self.cwfile["apps"].first
         )
         if ret
           STDOUT.write("\r=> Success Deployed                               \n")
