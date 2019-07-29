@@ -1,7 +1,7 @@
 module Manager
   class Version
     def self.all(app_id)
-      url = "#{Cloudwalk::Config.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100"
+      url = "#{Cloudwalk::Config.host}/v1/apps/#{app_id}/versions?access_token=#{self.token}&per_page=100"
       response = Util::CloudwalkHttp.get(url, {})
       if response.code == 200
         json = JSON.parse(response.body)
@@ -9,7 +9,7 @@ module Manager
         versions = json["appversions"]
 
         (total_pages - 1).times do |page|
-          url = "#{Cloudwalk::Config.host}/v1/apps/posxml/#{app_id}/versions?access_token=#{self.token}&per_page=100&page=#{page+2}"
+          url = "#{Cloudwalk::Config.host}/v1/apps/#{app_id}/versions?access_token=#{self.token}&per_page=100&page=#{page+2}"
           response = Util::CloudwalkHttp.get(url, {})
           if response.code == 200
             versions.concat(JSON.parse(response.body)["posxmlapps"])
@@ -20,7 +20,7 @@ module Manager
     end
 
     def self.get(id, app_id)
-      url = "#{Cloudwalk::Config.host}/v1/apps/posxml/#{app_id}/versions/#{id}?access_token=#{self.token}&per_page=100"
+      url = "#{Cloudwalk::Config.host}/v1/apps/#{app_id}/versions/#{id}?access_token=#{self.token}&per_page=100"
       response = Util::CloudwalkHttp.get(url, {})
       if response.code == 200
         JSON.parse(response.body)
@@ -28,7 +28,7 @@ module Manager
     end
 
     def self.create(parameters)
-      url   = "#{Cloudwalk::Config.host}/v1/apps/posxml/#{parameters["app_id"]}/versions?access_token=#{self.token}"
+      url   = "#{Cloudwalk::Config.host}/v1/apps/#{parameters["app_id"]}/versions?access_token=#{self.token}"
       options = {"Body" => JSON.stringify(parameters), "Content-Type" => "application/x-www-form-urlencoded"}
       response = Util::CloudwalkHttp.post(url, options)
       [response.code, response.body]
