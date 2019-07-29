@@ -32,7 +32,7 @@ module Cloudwalk
 
     def self.list
       if self.arguments && ! self.arguments.empty?
-        app = check_posxml_app(self.arguments.first)
+        app = self.arguments.first
         if app && app_hash = self.app(app)
           self.show_list(Manager::Version.all(app_hash["id"]))
         else
