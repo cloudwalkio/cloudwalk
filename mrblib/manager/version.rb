@@ -12,7 +12,7 @@ module Manager
           url = "#{Cloudwalk::Config.host}/v1/apps/#{app_id}/versions?access_token=#{self.token}&per_page=100&page=#{page+2}"
           response = Util::CloudwalkHttp.get(url, {})
           if response.code == 200
-            versions.concat(JSON.parse(response.body)["posxmlapps"])
+            versions.concat(JSON.parse(response.body)["apps"])
           end
         end
       end
