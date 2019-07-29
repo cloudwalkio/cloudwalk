@@ -68,12 +68,12 @@ module Cloudwalk
         version2_json = versions.find {|version| version["app_version"]["number"] == version2 }
         if version1_json
           if version2_json
-            puts "Version #{version2} already created for app #{self.application}"
+            puts "Version #{version2} already created for app #{app_name}"
           else
             self.create_version(version1_json["app_version"], version2)
           end
         else
-          puts "Version #{version1} not found for app #{self.application}"
+          puts "Version #{version1} not found for app #{app_name}"
         end
       else
         puts "Application not found"
