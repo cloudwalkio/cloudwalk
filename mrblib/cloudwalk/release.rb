@@ -99,9 +99,9 @@ module Cloudwalk
 
     def self.app(name)
       application = Manager::Application.all.find do |application|
-        application["posxml_app"]["name"] == xml2posxml(name)
+        (application["app"]["name"] == name) || (application["app"]["name"] == xml2posxml(name))
       end
-      application["posxml_app"] if application
+      application["app"] if application
     end
 
     def self.posxml2xml(str)
