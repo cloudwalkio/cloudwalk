@@ -142,7 +142,7 @@ module Cloudwalk
       puts "cloudwalk release [commands] [arguments]"
       puts " list <app>             : Show all versions based in application argument"
       puts " promote <app> <ver>    : Promote version setting as released, example: promote 1.0.0"
-      puts " new <app> <old>..<new> : Create new version based in a existent one, example: new appliaction.posxml 1.0.0..1.1.0"
+      puts " new <app> <old>..<new> : Create new version based in a existent one, example: new application.posxml 1.0.0..1.1.0"
     end
   end
 end
