@@ -32,7 +32,7 @@ module Cloudwalk
 
     def self.list
       if self.arguments && ! self.arguments.empty?
-        app = check_posxml_app(self.arguments.first)
+        app = self.arguments.first
         if app && app_hash = self.app(app)
           self.show_list(Manager::Version.all(app_hash["id"]))
         else
@@ -68,12 +68,12 @@ module Cloudwalk
         version2_json = versions.find {|version| version["app_version"]["number"] == version2 }
         if version1_json
           if version2_json
-            puts "Version #{version2} already created for app #{self.application}"
+            puts "Version #{version2} already created for app #{app_name}"
           else
             self.create_version(version1_json["app_version"], version2)
           end
         else
-          puts "Version #{version1} not found for app #{self.application}"
+          puts "Version #{version1} not found for app #{app_name}"
         end
       else
         puts "Application not found"
@@ -99,9 +99,9 @@ module Cloudwalk
 
     def self.app(name)
       application = Manager::Application.all.find do |application|
-        application["posxml_app"]["name"] == xml2posxml(name)
+        (application["app"]["name"] == name) || (application["app"]["name"] == xml2posxml(name))
       end
-      application["posxml_app"] if application
+      application["app"] if application
     end
 
     def self.posxml2xml(str)
@@ -142,7 +142,7 @@ module Cloudwalk
       puts "cloudwalk release [commands] [arguments]"
       puts " list <app>             : Show all versions based in application argument"
       puts " promote <app> <ver>    : Promote version setting as released, example: promote 1.0.0"
-      puts " new <app> <old>..<new> : Create new version based in a existent one, example: new appliaction.posxml 1.0.0..1.1.0"
+      puts " new <app> <old>..<new> : Create new version based in a existent one, example: new application.posxml 1.0.0..1.1.0"
     end
   end
 end

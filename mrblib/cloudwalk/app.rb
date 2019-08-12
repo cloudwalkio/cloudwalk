@@ -27,7 +27,7 @@ module Cloudwalk
       when "list"
         Cloudwalk::App.list
       when "new"
-        Cloudwalk::New.run(self.application || "")
+        Cloudwalk::New.run("#{self.application} #{args}" || "")
       when "delete"
         Cloudwalk::App.delete(self.application)
       else
@@ -36,29 +36,29 @@ module Cloudwalk
     end
 
     def self.list
-      apps = Manager::RubyApplication.all
-      unless apps.empty?
-        puts "Ruby Applications"
-        apps.each do |app|
-          puts "#{app["ruby_app"]["name"]} - #{app["ruby_app"]["description"]}"
-        end
-      end
-
+      posxml_apps = ""
+      ruby_apps = ""
       apps = Manager::Application.all
       unless apps.empty?
-        puts "Posxml Applications"
         apps.each do |app|
-          puts "#{app["posxml_app"]["name"]} - #{app["posxml_app"]["description"]}"
+          if app["app"]["language"] == "posxml"
+            posxml_apps.concat "#{app["app"]["name"]} - #{app["app"]["description"]}\n"
+          else
+            ruby_apps.concat "#{app["app"]["name"]} - #{app["app"]["description"]}\n"
+          end
         end
+        puts "POSXML Applications"
+        puts posxml_apps
+        puts "Ruby Applications"
+        puts ruby_apps
       end
     end
 
     def self.delete(application)
-      type, app = self.find(application)
-      if app && type == :ruby
+      if app = Manager::Application.find(application)
         app_name = Util.ask("READ THIS:\nThis action will permanently delete the application #{application}, and can only be concluded if you delete all associations (groups, modules and etc) with the application.\nPlease type in the name of the application to confirm:")
         if app_name == application
-          ret, err = Manager::RubyApplication.delete(app)
+          ret, err = Manager::Application.delete(app)
           if ret && !err
             puts "Success!"
           else
@@ -77,14 +77,6 @@ module Cloudwalk
       puts " list          : Show applications to the current account"
       puts " new <name>    : Create new application based like cloudwalk new"
       puts " delete <name> : Delete ruby application"
-    end
-
-    def self.find(application)
-      if application.include?(".posxml") || application.include?(".xml")
-        [:posxml, Manager::Application.find(application)]
-      else
-        [:ruby, Manager::RubyApplication.find(application)]
-      end
     end
 
     def self.cwfile

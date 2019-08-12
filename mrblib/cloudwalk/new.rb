@@ -1,7 +1,7 @@
 module Cloudwalk
   class New
     class << self
-      attr_accessor :name
+      attr_accessor :name, :language
     end
 
     def self.run(*args)
@@ -9,17 +9,20 @@ module Cloudwalk
         posxml = args.delete("-xml")
         self.name = args.first
 
+        if posxml
+          self.language = "posxml"
+        else
+          self.language = "ruby"
+        end
+
         if check_parameters(args)
-          if posxml
-            if cwfile = Manager::Application.create(self.name, self.pos_display_label,
-                                                    self.description, self.displayable,
-                                                    self.authorizer_url)
+          cwfile = Manager::Application.create(self.name, self.pos_display_label,
+                                                  self.description, self.displayable,
+                                                  self.authorizer_url, self.language)
+          if cwfile
+            if posxml
               Util::PosxmlNew.run(name, cwfile)
-            end
-          else
-            if cwfile = Manager::RubyApplication.create(self.name, self.pos_display_label,
-                                                    self.description, self.displayable,
-                                                    self.authorizer_url)
+            else
               Util::MrubyNew.run(name, cwfile)
             end
           end

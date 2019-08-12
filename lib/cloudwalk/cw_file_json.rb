@@ -108,21 +108,17 @@ module Cloudwalk
 
     def self.lock_build
       config = []
-      if self.ruby?
-        if app = Cloudwalk::Ruby::RubyApplication.find(self.cwfile["name"])
-          config << build_application(:ruby, app)
+      self.cwfile["apps"].each do |app_local|
+        app, version = Cloudwalk::ApplicationVersion.find(app_local["name"], app_local["version"])
+        if app && version
+          detail = Cloudwalk::ApplicationVersion.get(app["id"], version["id"])
+          config << build_application(app, version, detail["module_ids"])
+        elsif app
+          app = Cloudwalk::Application.find(xml2posxml(app_local["name"]))
+
+          config << build_application(app, app_local["version"], app_local["modules"])
         else
-          # TODO App not found, what to do?
-        end
-      else
-        self.cwfile["apps"].each do |app_local|
-          app, version = Cloudwalk::Posxml::PosxmlVersion.find(app_local["name"], app_local["version"])
-          if app && version
-            detail = Cloudwalk::Posxml::PosxmlVersion.get(app["id"], version["id"])
-            config << build_application(:posxml, app, version, detail["module_ids"])
-          else
-            raise Cloudwalk::CwFileJsonException.new("App (#{app_local["name"]}) Version (#{app_local["version"]}) not found")
-          end
+          raise Cloudwalk::CwFileJsonException.new("App (#{app_local["name"]}) Version (#{app_local["version"]}) not found")
         end
       end
 
@@ -130,35 +126,26 @@ module Cloudwalk
     end
 
     def self.build_module(mod)
-      if module_version = Cloudwalk::Posxml::PosxmlVersion.get(mod["app_id"], mod["version_id"])
+      app, ver = Cloudwalk::ApplicationVersion.find(mod.first, mod.last)
+      if module_version = Cloudwalk::ApplicationVersion.get(app["id"], ver["id"])
         {
-          "name"       => Cloudwalk::Posxml::PosxmlApplication.get_name(module_version["app_id"]),
+          "name"       => Cloudwalk::Application.get_name(app["id"]),
           "version"    => module_version["number"],
           "id"         => module_version["app_id"],
           "version_id" => module_version["id"]
         }
       else
-        raise Cloudwalk::CwFileJsonException.new("App (#{mod['app_id']}) Module Version (#{mod['version_id']}) not found")
+        raise Cloudwalk::CwFileJsonException.new("App (#{mod.first}) Module Version (#{mod.last}) not found")
       end
     end
 
-    def self.build_application(type, app, version = nil, modules_remote = nil)
-      if type == :ruby
-        {
-          "name"       => app["name"],
-          "id"         => app["id"],
-          "modules"    => [],
-          "version"    => "1.0.0"
-        }
-      else
-        {
-          "name"       => app["name"],
-          "id"         => app["id"],
-          "modules"    => modules_remote.collect {|mod| build_module(mod)},
-          "version"    => version["number"],
-          "version_id" => version["id"]
-        }
-      end
+    def self.build_application(app, version = nil, modules_remote = nil)
+      {
+        "name"       => app["name"],
+        "id"         => app["id"],
+        "modules"    => modules_remote.collect {|mod| build_module(mod)},
+        "version"    => version["number"] || version,
+      }
     end
 
     def self.exists?
@@ -256,11 +243,11 @@ module Cloudwalk
 
           if remote_app
             remote_posxml_app   = remote_app["posxml_app"]
-            remote_versions     = Cloudwalk::Posxml::PosxmlVersion.all(remote_posxml_app["id"])
+            remote_versions     = Cloudwalk::ApplicationVersion.all(remote_posxml_app["id"])
             remote_version_json = remote_versions.find { |json| json["app_version"]["number"] == version }
 
             if remote_version_json && (remote_version = remote_version_json["app_version"])
-              remote_version_detail = Cloudwalk::Posxml::PosxmlVersion.get(remote_posxml_app["id"], remote_version["id"])
+              remote_version_detail = Cloudwalk::ApplicationVersion.get(remote_posxml_app["id"], remote_version["id"])
               # TODO: Check if application exists locally
               build_application(local_app, config, remote_posxml_app, remote_version, remote_version_detail["app_version"]["module_ids"])
             else
