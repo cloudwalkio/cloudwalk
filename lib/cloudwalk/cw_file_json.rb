@@ -49,6 +49,13 @@ module Cloudwalk
       false
     end
 
+    def self.convert_old_cwfile(cwfile)
+      if cwfile["apps"].nil?
+        cwfile = Hash.[]("apps",[cwfile])
+      end
+      cwfile
+    end
+
     # Load Scenarios
     # 1. Pure true
     # - Cwfile.json exists.
@@ -83,7 +90,7 @@ module Cloudwalk
     # - Cwfile.json.lock not exists.
     # R: ASK: Cwfile.json not exists, should I create a skeleton or get the last versions available for the files we have here?
     def self.setup(without_lock_check = false)
-      if self.cwfile = load_cwfile
+      if self.cwfile = self.convert_old_cwfile(load_cwfile)
         if without_lock_check
           true
         elsif CwFileJson.exists_lock?
