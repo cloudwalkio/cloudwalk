@@ -66,9 +66,11 @@ def gem_config(conf)
   conf.gem :github => "scalone/mruby-context"
   conf.gem :mgem => "mruby-ripemd"
   conf.gem :mgem => "mruby-hmac"
-  conf.gem :mgem => "mruby-sha2"
+  # conf.gem :mgem => "mruby-sha2"
+  conf.gem :github => "keizo042/mruby-sha2"
   conf.gem :github => "scalone/mruby-sha1"
-  conf.gem :mgem => "mruby-base58"
+  # conf.gem :mgem => "mruby-base58"
+  conf.gem :github => "scalone/mruby-base58"
   conf.gem :mgem => "mruby-http"
 
   # be sure to include this gem (the cli app)

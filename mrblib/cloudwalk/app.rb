@@ -27,7 +27,7 @@ module Cloudwalk
       when "list"
         Cloudwalk::App.list
       when "new"
-        Cloudwalk::New.run("#{self.application} #{args}" || "")
+        Cloudwalk::New.run(self.application, args.first || "")
       when "delete"
         Cloudwalk::App.delete(self.application)
       else
