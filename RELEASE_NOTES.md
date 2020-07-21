@@ -1,5 +1,10 @@
 # Cloudwalk CLI
 
+### 2.0.0 - 2020-07-21
+
+- Update mruby version to 2.1.0;
+- Remove windows support.
+
 ### 1.14.3 - 2019-05-02
 
 - Move host to manager.cloudwalk.io and avoid certification problems.
