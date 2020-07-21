@@ -2,7 +2,7 @@ FROM scalone/cloudwalk-cli
 
 #RUN gem install bundler
 RUN apt-get update
-RUN apt-get install -y libreadline-dev binutils-mingw-w64 mingw-w64-tools lib32readline-dev lib32ncurses5-dev
+RUN apt-get install -y linux-headers-generic libreadline-dev binutils-mingw-w64 mingw-w64-tools lib32readline-dev lib32ncurses5-dev
 RUN apt-get install -y openssl build-essential libssl-dev libreadline-dev
 
 ENV PATH="/usr/local/rvm/bin:/opt/osxcross/target/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
