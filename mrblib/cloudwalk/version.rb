@@ -1,3 +1,3 @@
 module Cloudwalk
-  VERSION = "2.0.0"
+  VERSION = "1.15.0"
 end
